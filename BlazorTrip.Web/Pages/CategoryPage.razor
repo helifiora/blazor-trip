@@ -1,0 +1,46 @@
+@page "/categories"
+
+<div class="app-page">
+
+    <PageHeader Title="Categorias"
+                SubTitle="Quais categorias foram os gastos"
+                IconName="ph ph-tag-simple"/>
+
+
+    <form class="app-card" style="margin-bottom: 2rem; grid-template-columns: 1fr auto auto;
+    gap: 1rem;" @onsubmit="AddCategory">
+
+        <h2 class="app-title" style="margin-bottom: 1rem">Nova Categoria</h2>
+
+        <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: flex-end">
+
+            <SelectCategoryIcon @bind-Value="_logo"/>
+
+            <input id="name-form-id"
+                   placeholder="Escreva o nome..."
+                   class="app-input"
+                   style="width: 100%"
+                   @ref="_nameReference"
+                   @bind="_name"/>
+
+            <button type="submit" class="app-button">
+                <span>Criar</span>
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <div style="justify-content: center; display: grid; grid-template-columns: repeat(auto-fit, 15rem); gap: 1rem">
+
+        @foreach (var item in categoryRepo.Categories)
+        {
+            <AppCategoryItem Category="item"
+                             OnRemoved="RemoveCategory"
+                             @key="item.Id"/>
+        }
+
+    </div>
+
+</div>

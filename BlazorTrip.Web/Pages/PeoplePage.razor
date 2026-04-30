@@ -1,0 +1,36 @@
+@page "/people"
+
+<div class="app-page">
+    <PageHeader Title="Participantes"
+                SubTitle="Todos os viajantes"
+                IconName="ph ph-users-three"/>
+
+    <form @onsubmit="AddNewPerson" class="app-card"
+          style="margin-bottom: 2rem; grid-template-columns: 1fr auto auto;    gap: 1rem;    padding: 1.5rem;">
+
+        <h2 class="app-title -is-2" style="margin-bottom: 1rem">Novo Participante</h2>
+
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: flex-end">
+            <input placeholder="Escreva o nome..." id="name-form-id" class="app-input" style="width: 100%" @bind="_name"
+                   @ref="_nameInput"/>
+
+            <button type="submit" class="app-button">
+                <span>Criar</span>
+            </button>
+
+        </div>
+
+    </form>
+
+
+    <div style="display: flex; gap: 0.5rem; flex-direction: column">
+
+        @foreach (var item in personRepo.People)
+        {
+            <PersonItem Person="item"
+                        @key="item.Id"
+                        OnRemoved="Remove"/>
+        }
+
+    </div>
+</div>

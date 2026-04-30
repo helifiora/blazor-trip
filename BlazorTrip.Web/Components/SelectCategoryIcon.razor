@@ -1,0 +1,22 @@
+<div id="@_uniqueId" popover="auto" class="select-category-icon-grid">
+    @foreach (var item in AvailableIcons)
+    {
+        <label class="select-category-icon">
+            <input type="radio" name="@GroupName"
+                   checked="@(Value == item)"
+                   @onchange="@(() => OnIconSelected(item))"/>
+            <i class="ph @item"></i>
+        </label>
+    }
+</div>
+
+<button popovertarget="@_uniqueId" type="button" class="select-category-button">
+    @if (!string.IsNullOrEmpty(Value))
+    {
+        <i class="ph @Value"></i>
+    }
+    else
+    {
+        <i class="ph ph-empty" style="opacity: 0.4"></i>
+    }
+</button>

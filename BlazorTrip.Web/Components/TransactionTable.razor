@@ -1,0 +1,64 @@
+<table>
+    <thead>
+    <tr>
+        <th>Descrição</th>
+        <th>Valor</th>
+        <th>Pagador</th>
+        <th>Categoria</th>
+        <th></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    @if (Query.Any())
+    {
+        @foreach (var row in Query)
+        {
+            <tr>
+                <td @onclick="@(() => OpenPreview(row))" style="cursor: pointer; text-decoration: underline">
+                    @row.Name
+                </td>
+                <td>@row.Amount.ToString("C")</td>
+                <td>@row.Payer.Name</td>
+                <td>
+                    <div style="display: flex; gap: 0.5rem; align-items: center">
+                        <i class="ph @row.Category.Logo"></i>
+                        <span>@row.Category.Name</span>
+                    </div>
+                </td>
+                @* <td>@string.Join(", ", row.Shared.Select(s => s.Name))</td> *@
+                <td>
+                    <div style="display: flex; gap: 0.5rem; justify-content: flex-end">
+                        <button class="app-icon-button" @onclick="@(() => OpenPreview(row))">
+                            <i class="ph ph-eye"></i>
+                        </button>
+                        <button class="app-icon-button" @onclick="@(() => OnEdit.InvokeAsync(row))">
+                            <i class="ph ph-pen"></i>
+                        </button>
+                        <button class="app-icon-button" @onclick="@(() => OnDelete.InvokeAsync(row))">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        }
+    }
+    else
+    {
+        <tr>
+            <td colspan="6">
+                Nenhum dado cadastrado!
+            </td>
+        </tr>
+    }
+    </tbody>
+
+</table>
+
+<AppModal @bind-Visible="isPreviewVisible">
+    @if (_selected is not null)
+    {
+        <AppTransactionDetail Transaction="_selected"
+                              OnClose="@(() => ClosePreview())"/>
+    }
+</AppModal>

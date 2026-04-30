@@ -1,0 +1,15 @@
+.app-search-container {
+    position: relative;
+    
+    & > i {
+        position: absolute;
+        top: 50%;
+        left: 0.875rem;
+        transform: translateY(-50%);
+    }
+    
+    & > input {
+        width: 100%;
+        padding-left: 2.5rem;
+    }
+}

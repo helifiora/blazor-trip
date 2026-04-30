@@ -1,0 +1,27 @@
+.app-input {
+    background: var(--ds-sys-color-background);
+    border: 2px solid var(--ds-sys-color-primary);
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    font-family: var(--sys-typescale-font-family-body), sans-serif;
+    font-weight: var(--sys-typescale-weight-regular);
+    font-size: var(--sys-typescale-body-md-size);
+    line-height: var(--sys-typescale-body-md-line-height);
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+    transition: 0.3s ease;
+
+    &:focus {
+        outline-color: oklch(from var(--ds-sys-color-primary) l c h / 40%);
+    }
+}
+
+.app-input__label {
+    display: block;
+    font-family: var(--sys-typescale-font-family-body), sans-serif;
+    font-weight: var(--sys-typescale-weight-regular);
+    font-size: var(--sys-typescale-body-sm-size);
+    line-height: var(--sys-typescale-body-sm-size);
+    margin-bottom: 0.5rem;
+}

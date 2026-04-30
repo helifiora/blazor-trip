@@ -1,0 +1,21 @@
+@page "/reports"
+
+<div class="app-page">
+
+    <PageHeader
+        Title="Relatórios"
+        SubTitle="Divisão de contas para cada membro da viagem"
+        IconName="ph ph-table"/>
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+        @foreach (var report in _reports)
+        {
+            <AppReportCard Report="report"
+                           @key="report.Person.Id"/>
+        }
+    </div>
+</div>
+
+<AppModal>
+    
+</AppModal>

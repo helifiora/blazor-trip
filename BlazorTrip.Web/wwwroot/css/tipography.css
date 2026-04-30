@@ -1,0 +1,104 @@
+:root {
+    /* FONT FAMILY */
+    --sys-typescale-font-family-title: "Bebas Neue", sans-serif;
+    --sys-typescale-font-family-body: "Sora", sans-serif;
+    /* END */
+
+    /* FONT WEIGHT */
+    --sys-typescale-weight-regular: 400;
+    --sys-typescale-weight-medium: 600;
+    --sys-typescale-weight-bold: 700;
+    /* END */
+
+    /* TITLE FONT */
+    --sys-typescale-title-lg-size: 2.5rem;
+    --sys-typescale-title-lg-line-height: 1.1;
+
+    --sys-typescale-title-md-size: 2rem;
+    --sys-typescale-title-md-line-height: 1.15;
+
+    --sys-typescale-title-sm-size: 1.5rem;
+    --sys-typescale-title-sm-line-height: 1.2;
+    /* END */
+
+    /* TEXT FONT */
+    --sys-typescale-body-lg-size: 1.25rem;
+    --sys-typescale-body-lg-line-height: 1.45;
+
+    --sys-typescale-body-md-size: 1rem;
+    --sys-typescale-body-md-line-height: 1.5;
+
+    --sys-typescale-body-sm-size: 0.875rem;
+    --sys-typescale-body-sm-line-height: 1.5;
+    /* END */
+}
+
+.app-title {
+    font-family: var(--sys-typescale-font-family-title), sans-serif;
+    font-weight: var(--sys-typescale-weight-bold);
+    font-size: var(--sys-typescale-title-md-size);
+    line-height: var(--sys-typescale-title-md-line-height);
+
+    &.-sm {
+        font-size: var(--sys-typescale-title-sm-size);
+        line-height: var(--sys-typescale-title-sm-size);
+    }
+
+    &.-lg {
+        font-size: var(--sys-typescale-title-lg-size);
+        line-height: var(--sys-typescale-title-lg-size);
+    }
+
+    &.-bold {
+        font-weight: var(--sys-typescale-weight-bold);
+    }
+
+    &.-negative {
+        color: var(--ds-sys-color-negative);
+    }
+
+    &.-positive {
+        color: var(--ds-sys-color-positive);
+    }
+}
+
+.app-text {
+    font-family: var(--sys-typescale-font-family-body), sans-serif;
+    font-weight: var(--sys-typescale-weight-regular);
+    font-size: var(--sys-typescale-body-md-size);
+    line-height: var(--sys-typescale-body-md-line-height);
+
+    &.-sm {
+        font-size: var(--sys-typescale-body-sm-size);
+        line-height: var(--sys-typescale-body-sm-size);
+    }
+
+    &.-lg {
+        font-size: var(--sys-typescale-body-lg-size);
+        line-height: var(--sys-typescale-body-lg-size);
+    }
+    
+    &.-bold {
+        font-weight: var(--sys-typescale-weight-bold);
+    }
+    
+    &.-medium {
+        font-weight: var(--sys-typescale-weight-medium);
+    }
+    
+    &.-italic {
+        font-style: italic;
+    }
+
+    &.-negative {
+        color: var(--ds-sys-color-negative);
+    }
+
+    &.-positive {
+        color: var(--ds-sys-color-positive);
+    }
+
+    &.-muted {
+        color: oklch(from var(--ds-sys-color-primary) l c h / 60%);
+    }
+}

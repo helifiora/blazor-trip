@@ -1,0 +1,16 @@
+.report-card-transaction {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    background: red;
+}
+
+.c-person-restitution__card {
+    display: flex;
+    flex-direction: column;
+}
+
+.report-card-transaction:not(:last-child) {
+    border-bottom: 1px solid oklch(var(--ds-sys-color-primary) l c h / 20%);
+}

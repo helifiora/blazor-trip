@@ -1,0 +1,67 @@
+:root {
+    --sys-shape-corder-width: 0.125rem;
+    --sys-shape-corder-radius: 0;
+
+    --comp-button-height-sm: 2rem;
+    --comp-button-height-md: 2.5rem;
+    --comp-button-height-lg: 3rem;
+
+    --comp-button-shadow: 0.125rem 0.125rem 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow-transform: translate(0, 0);
+
+    --comp-button-shadow-hover: 0.0625rem 0.0625rem 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow-transform-hover: translate(0.125rem, 0.125rem);
+
+    --comp-button-shadow-active: 0 0 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow-transform-active: translate(0.25rem, 0.25rem);
+
+
+}
+
+.app-button {
+    height: var(--comp-button-height-md);
+    font-family: var(--sys-typescale-font-family-body), sans-serif;
+    font-size: var(--sys-typescale-body-md-size), sans-serif;
+    background: oklch(from var(--ds-sys-color-primary) l c h / 90%);
+    color: white;
+    min-width: 8.75rem;
+    padding: 0.5rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-content: center;
+    transition: 0.3s ease;
+    
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+
+    &:focus {
+        outline-color: oklch(from var(--ds-sys-color-primary) l c h / 40%);
+    }
+
+    &:hover {
+        background: oklch(from var(--ds-sys-color-primary) l c h / 80%);
+        box-shadow: var(--comp-button-shadow-hover);
+    }
+
+    &:active {
+        background: oklch(from var(--ds-sys-color-primary) l c h / 80%);
+        box-shadow: var(--comp-button-shadow-active);
+    }
+}
+
+.app-icon-button {
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    font-family: "Sora", sans-serif;
+    transition: 0.3s ease;
+    border: none;
+
+    &:hover {
+        background: oklch(from var(--ds-sys-color-primary) l c h / 10%);
+    }
+}

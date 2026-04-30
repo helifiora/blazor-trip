@@ -1,0 +1,38 @@
+.nav-menu {
+    background: transparent;
+    border-right: 2px solid var(--ds-sys-color-primary);
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+}
+
+.nav-menu__title {
+    font-size: 2rem;
+    color: var(--ds-sys-color-primary);
+    margin-bottom: 2rem;
+}
+
+.nav-menu__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem
+}
+
+::deep .nav-menu__link {
+    display: grid;
+    grid-template-columns: 1rem 1fr;
+    gap: 1rem;
+    align-items: center;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    transition: 0.3s ease;
+    border-radius: 0.125rem;
+    color: var(--ds-sys-color-primary);
+
+    &:hover {
+        background-color: oklch(from var(--ds-sys-color-primary) l c h / 8%);
+    }
+}
+
+::deep .active {
+    background-color: oklch(from var(--ds-sys-color-primary) l c h / 20%) !important;
+}

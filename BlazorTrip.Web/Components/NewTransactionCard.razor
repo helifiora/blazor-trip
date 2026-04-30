@@ -1,0 +1,70 @@
+<EditForm Model="_model" OnValidSubmit="Submit" class="app-new-transaction-card">
+
+    <div style="display: flex; justify-content: space-between; align-items: center">
+        <h2 class="app-title" style="line-height: 1">Novo Lançamento</h2>
+        <button class="app-icon-button" type="button" @onclick="@(() => OnClose.InvokeAsync())">
+            <i class="ph ph-x"></i>
+        </button>
+    </div>
+
+
+    <div style="display: flex; flex-direction: column; gap: 1rem;">
+
+        <div>
+            <label for="form-name" class="app-input__label">Nome</label>
+            <InputText @bind-Value="_model.Name"
+                       @ref="_nameRef"
+                       id="form-name" class="app-input" autofocus/>
+        </div>
+
+        <div>
+            <label for="form-amount" class="app-input__label">Valor</label>
+            <InputNumber @bind-Value="_model.Amount" class="app-input" id="form-amount"/>
+        </div>
+
+        @* <div> *@
+        @*     <label for="form-date" class="app-input__label">Data</label> *@
+        @*     <InputDate @bind-Value="_model.Date" Type="InputDateType.Date" class="app-input" id="form-date"/> *@
+        @* </div> *@
+
+        <div>
+            <label for="form-category" class="app-input__label">Categoria</label>
+            <InputSelect @bind-Value="_model.CategoryId" id="form-category" class="app-input">
+                @foreach (var item in Categories)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+        </div>
+
+        <div>
+            <label for="form-payer" class="app-input__label">Pago por</label>
+            <InputSelect @bind-Value="_model.PayerId" id="form-payer" class="app-input">
+                @foreach (var item in People)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            </InputSelect>
+        </div>
+    </div>
+
+    <div>
+        <label class="app-input__label">Dividido para</label>
+        <div
+            style="display: flex; flex-direction: column; gap: 1rem; margin-top: 1rem;">
+            @foreach (var item in People)
+            {
+                <label style="display: flex; gap: 0.5rem; align-items: center" @key="item.Id">
+                    <input type="checkbox" name="form-shared-by" value="@item.Name"
+                           checked="@_model.SharedIds.Contains(item.Id)"
+                           @onchange="@(() => _model.OnToggleShared(item.Id))"/>
+                    @item.Name
+                </label>
+            }
+        </div>
+    </div>
+
+
+    <button type="submit" class="app-button" style="margin-top: 1rem">CRIAR</button>
+
+</EditForm>

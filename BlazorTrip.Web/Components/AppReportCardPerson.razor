@@ -1,0 +1,45 @@
+<div class="c-person">
+    <div class="c-person-header @(Payer.Shares.Any() ? "-opened" : "")">
+        <p class="app-text -medium">@Payer.PersonToPay.Name</p>
+        <div class="c-amount-container">
+            <span class="app-text @GetAmountClass(Payer.ValueToPay)">
+                @if (Payer.ValueToPay != 0)
+                {
+                    @decimal.Abs(Payer.ValueToPay).ToString("C")
+                }
+            </span>
+
+            <span class="app-text -sm -italic @GetAmountClass(Payer.ValueToPay)">
+                (@GetAmountStatus(Payer.ValueToPay))
+            </span>
+        </div>
+    </div>
+    @if (Payer.Shares.Any())
+    {
+        <div style="padding: 0 1.5rem">
+            <div style="height: 1px; background: oklch(from var(--ds-sys-color-primary) l c h / 14%); width: 100%"></div>
+        </div>
+        <ul class="c-person-content">
+            @foreach (var share in Payer.Shares)
+            {
+                <li class="c-person-transaction">
+                    <i class="ph @share.Category.Logo"></i>
+
+                    <span class="app-text -sm">
+                        @share.Transaction.Name
+                    </span>
+
+                    <div class="c-amount-container">
+                        <span class="app-text -sm @GetAmountClass(share.SharedAmount)">
+                            @decimal.Abs(share.SharedAmount).ToString("C")
+                        </span>
+                        <span class="app-text -sm -italic @GetAmountClass(share.SharedAmount)">
+                            (@GetAmountStatus(share.SharedAmount))
+                        </span>
+                    </div>
+
+                </li>
+            }
+        </ul>
+    }
+</div>

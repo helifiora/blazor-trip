@@ -1,0 +1,40 @@
+<div class="app-card" style="display: grid; grid-template-columns: 280px auto 1fr; gap: 2rem">
+    <div style="display: flex; flex-direction: column; gap: 1rem">
+        <h2 class="app-title">@Report.Person.Name</h2>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <span class="app-text -sm -bold">Gasto Total</span>
+            <span
+                class="app-text -lg">@Report.TotalSpent.ToString("C")</span>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+            <span class="app-text -sm -bold">Balanço Total</span>
+            <div style="display: flex; align-items: center; gap: 0.25rem">
+                <span
+                    class="app-text -lg @GetAmountClass(Report.Balance)">
+                    @decimal.Abs(Report.Balance).ToString("C")
+                </span>
+                <span class="app-text -sm  @GetAmountClass(Report.Balance)"
+                      style="font-style: italic; line-height: var(--sys-typescale-body-lg-line-height)">
+                    (@GetAmountStatus(Report.Balance))
+                </span>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="width: 2px; height: 100%; background: oklch(from var(--ds-sys-color-primary) l c h / 20%)"></div>
+
+    <div>
+        <p class="app-text -bold -sm" style="margin-bottom: 0.5rem">Valor em haver</p>
+        <ul style="display: flex; flex-direction: column; gap: 0.25rem;">
+            @foreach (var personReport in Report.TransactionShares)
+            {
+                <AppReportCardPerson Payer="personReport"
+                                     @key="personReport.PersonToPay.Id"/>
+            }
+        </ul>
+    </div>
+
+</div>

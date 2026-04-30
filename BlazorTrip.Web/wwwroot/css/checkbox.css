@@ -1,0 +1,40 @@
+input[type=checkbox] {
+    /* Add if not using autoprefixer */
+    -webkit-appearance: none;
+    appearance: none;
+    /* For iOS < 15 to remove gradient background */
+    /* Not removed via appearance */
+    margin: 0;
+    font: inherit;
+    color: currentColor;
+    width: 1rem;
+    height: 1rem;
+    background: transparent;
+    border: 2px solid var(--ds-sys-color-primary);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform-origin: center center;
+    flex: none;
+
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+    transition: 0.3s ease;
+
+    &:focus {
+        outline-color: oklch(from var(--ds-sys-color-primary) l c h / 40%);
+    }
+}
+
+input[type="checkbox"]::before {
+    content: "";
+    width: 0.6rem;
+    height: 0.6rem;
+    transform: scale(0);
+    transition: 0.12s ease-in-out;
+    background: var(--ds-sys-color-primary);
+}
+
+input[type="checkbox"]:checked::before {
+    transform: scale(1);
+}

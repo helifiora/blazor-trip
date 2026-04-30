@@ -1,0 +1,46 @@
+@page "/transactions"
+
+<div class="app-page">
+
+    <PageHeader
+        Title="Lançamentos"
+        SubTitle="Valores que foram gastos na viagem"
+        IconName="ph ph-receipt"/>
+
+    <div @ref="_popoverNew" class="c-component-popover" popover="manual" id="new-transaction-form">
+        <NewTransactionCard
+            Categories="categoryRepository.Categories"
+            People="personRepository.People"
+            OnSubmit="Submit"
+            OnClose="ClosePopover"/>
+    </div>
+
+    <div style="display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem">
+
+        <div class="app-search-container">
+            <input class="app-input" placeholder="Pesquise aqui..."/>
+            <i class="ph ph-magnifying-glass"></i>
+        </div>
+
+        <button class="app-button" popovertarget="new-transaction-form">
+            <i class="ph ph-plus"></i>
+            NOVO
+        </button>
+    </div>
+
+    <TransactionTable Transactions="_transactions"
+                      OnDelete="Delete"
+                      OnEdit="ToUpdate"/>
+
+
+    <AppModal @bind-Visible="_isUpdateVisible">
+        @if (_selected is not null)
+        {
+            <UpdateTransactionCard Categories="categoryRepository.Categories"
+                                   People="personRepository.People"
+                                   OnSubmit="Update"
+                                   OnClose="@(() => _isUpdateVisible = false)"
+                                   Transaction="_selected"/>
+        }
+    </AppModal>
+</div>

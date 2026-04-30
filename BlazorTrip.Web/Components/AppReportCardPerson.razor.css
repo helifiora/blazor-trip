@@ -1,0 +1,40 @@
+.c-person {
+    border: 1px solid oklch(from var(--ds-sys-color-primary) l c h / 24%);
+}
+
+.c-person:nth-child(odd) {
+    background: oklch(from var(--ds-sys-color-primary) l c h / 6%);
+}
+
+.c-person-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.5rem;
+    
+    &.-opened {
+        padding-bottom: 0.5rem;
+    }
+}
+
+
+.c-person-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.5rem 1.5rem 1.5rem 2.5rem;
+}
+
+.c-person-transaction {
+    align-items: center;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.5rem;
+}
+
+.c-amount-container {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
