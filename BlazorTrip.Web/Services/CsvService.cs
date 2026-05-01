@@ -4,7 +4,6 @@ using BlazorTrip.Web.Repositories;
 using CsvHelper;
 using CsvHelper.Configuration;
 using CsvHelper.Configuration.Attributes;
-using CsvHelper.TypeConversion;
 using Microsoft.JSInterop;
 
 namespace BlazorTrip.Web.Services;
@@ -25,14 +24,9 @@ public class CsvService(
                 Delimiter = "|",
             });
             var records = await csv.GetRecordsAsync<TransactionCsv>().ToListAsync();
-            var categories = records.Select(record => record.Category)
+            var categories = records.Select(record => new CategoryNameAndLogo(record.Category, record.CategoryLogo))
                 .Distinct()
-                .Select(s =>
-                {
-                    var categoryName = s.Split(",").First();
-                    var categoryLogo = s.Split(",").Last();
-                    return Category.Create(categoryName, categoryLogo);
-                })
+                .Select(s => Category.Create(s.Name, s.Logo))
                 .ToDictionary(k => k.Name);
 
             var people = records.Select(record => record.Payer)
@@ -55,7 +49,7 @@ public class CsvService(
             var transactions = records.Select(s =>
             {
                 var payerId = people.GetValueOrDefault(s.Payer)!.Id;
-                var categoryId = categories.GetValueOrDefault(s.GetCategoryName())!.Id;
+                var categoryId = categories.GetValueOrDefault(s.Category)!.Id;
                 var sharedIds = s.SharedBy.Split(",").Distinct().Select(q => people.GetValueOrDefault(q.Trim())!.Id);
                 return Transaction.Create(s.Name, s.Value, categoryId, payerId, sharedIds);
             });
@@ -86,7 +80,8 @@ public class CsvService(
                     Value = s.Amount,
                     Payer = payerName,
                     SharedBy = sharedPersonName,
-                    Category = string.Join(",", categoryName, categoryLogo),
+                    Category = categoryName,
+                    CategoryLogo = categoryLogo
                 };
             });
 
@@ -121,13 +116,7 @@ class TransactionCsv
 
     [Index(4)] [Name("Categoria")] public string Category { get; set; }
 
-    public string GetCategoryName()
-    {
-        return Category.Split(",").First();
-    }
-    
-    public string GetCategoryLogo()
-    {
-        return Category.Split(",").Last();
-    }
+    [Index(5)] [Name("Categoria Logo")] public string CategoryLogo { get; set; }
 }
+
+record CategoryNameAndLogo(string Name, string Logo);
