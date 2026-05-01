@@ -32,11 +32,11 @@
     justify-content: center;
     transition: 0.3s ease;
     
-    outline: 1px solid transparent;
+    outline: 2px solid transparent;
     outline-offset: 2px;
 
     &:focus {
-        outline-color: oklch(from var(--ds-sys-color-primary) l c h / 40%);
+        outline-color: oklch(from var(--ds-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
     }
 
     &:hover {

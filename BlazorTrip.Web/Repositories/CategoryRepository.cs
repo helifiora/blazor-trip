@@ -7,7 +7,7 @@ public class CategoryRepository : ICategoryRepository
 {
     public event Action? OnChange;
 
-    private readonly Dictionary<Guid, Category> _categories = [];
+    private Dictionary<Guid, Category> _categories = [];
 
     public IEnumerable<Category> Categories => _categories.Select(s => s.Value);
 
@@ -43,6 +43,13 @@ public class CategoryRepository : ICategoryRepository
             OnChange?.Invoke();
         }
 
+        return Task.CompletedTask;
+    }
+
+    public Task Import(IEnumerable<Category> categories)
+    {
+        _categories = categories.ToDictionary(s => s.Id);
+        OnChange?.Invoke();
         return Task.CompletedTask;
     }
 }

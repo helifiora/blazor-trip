@@ -40,4 +40,11 @@ public class TransactionRepository : ITransactionRepository
 
         return Task.CompletedTask;
     }
+
+    public Task Import(IEnumerable<Transaction> transactions)
+    {
+        _transactions = transactions.ToDictionary(p => p.Id);
+        OnChange?.Invoke();
+        return Task.CompletedTask;
+    }
 }

@@ -8,12 +8,12 @@
     font-weight: var(--sys-typescale-weight-regular);
     font-size: var(--sys-typescale-body-md-size);
     line-height: var(--sys-typescale-body-md-line-height);
-    outline: 1px solid transparent;
+    outline: 2px solid transparent;
     outline-offset: 2px;
     transition: 0.3s ease;
 
     &:focus {
-        outline-color: oklch(from var(--ds-sys-color-primary) l c h / 40%);
+        outline-color: oklch(from var(--ds-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
     }
 }
 

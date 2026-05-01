@@ -3,6 +3,9 @@
     border-right: 2px solid var(--ds-sys-color-primary);
     padding: 2rem 1.5rem;
     overflow-y: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
 }
 
 .nav-menu__title {
@@ -35,4 +38,10 @@
 
 ::deep .active {
     background-color: oklch(from var(--ds-sys-color-primary) l c h / 20%) !important;
+}
+
+.nav-menu__footer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }

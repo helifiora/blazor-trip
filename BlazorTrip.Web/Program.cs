@@ -6,6 +6,7 @@ using BlazorTrip.Web.Commans;
 using BlazorTrip.Web.Facade;
 using BlazorTrip.Web.Queries;
 using BlazorTrip.Web.Repositories;
+using BlazorTrip.Web.Services;
 
 var culture = new CultureInfo("pt-BR");
 culture.NumberFormat.CurrencySymbol = "R$ ";
@@ -21,6 +22,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IPersonRepository, PersonRepository>();
 builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
+builder.Services.AddScoped<CsvService>();
 
 builder.Services.AddTransient<SelectTransactionDto>();
 builder.Services.AddTransient<ReportFacade>();

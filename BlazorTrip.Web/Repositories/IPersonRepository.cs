@@ -9,4 +9,5 @@ public interface IPersonRepository
     public Person? GetById(Guid id);
     public Task<Person> Create(string name);
     public Task Delete(Guid id);
+    public Task Import(IEnumerable<Person> people);
 }

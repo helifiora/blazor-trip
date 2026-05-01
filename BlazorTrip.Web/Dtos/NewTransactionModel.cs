@@ -5,7 +5,7 @@ namespace BlazorTrip.Web.Dtos;
 public class NewTransactionModel
 {
     [Required(ErrorMessage = "Nome é obrigatório")]
-    [StringLength(8, ErrorMessage = "Nome deve ter, no mínimo, 8 caracteres")]
+    [MinLength(8, ErrorMessage = "Nome deve ter, no mínimo, 8 caracteres")]
     public string Name { get; set; } = string.Empty;
 
     [Required(ErrorMessage = "Categoria é obrigatória")]
@@ -22,15 +22,12 @@ public class NewTransactionModel
 
     [Required] public decimal Amount { get; set; }
 
-    public void Reset()
+    public static NewTransactionModel NewWithSharedAdded(IEnumerable<Guid> sharedIds)
     {
-        CategoryId = Guid.Empty;
-        PayerId = Guid.Empty;
-        SharedIds = [];
-        Name = "";
-        Date = DateTime.Now;
-        SharedIds.Clear();
-        Amount = decimal.Zero;
+        return new NewTransactionModel
+        {
+            SharedIds = sharedIds.ToHashSet()
+        };
     }
 
     public void OnToggleShared(Guid sharedId)

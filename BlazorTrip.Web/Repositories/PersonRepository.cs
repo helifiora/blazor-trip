@@ -4,7 +4,7 @@ namespace BlazorTrip.Web.Repositories;
 
 public class PersonRepository : IPersonRepository
 {
-    private readonly Dictionary<Guid, Person> _data = [];
+    private Dictionary<Guid, Person> _data = [];
 
     public event Action? OnChange;
 
@@ -42,6 +42,13 @@ public class PersonRepository : IPersonRepository
             OnChange?.Invoke();
         }
 
+        return Task.CompletedTask;
+    }
+
+    public Task Import(IEnumerable<Person> people)
+    {
+        _data = people.ToDictionary(s => s.Id);
+        OnChange?.Invoke();
         return Task.CompletedTask;
     }
 }

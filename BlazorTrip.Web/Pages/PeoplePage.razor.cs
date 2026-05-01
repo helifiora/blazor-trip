@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Pages;
 
-public partial class PeoplePage(IPersonRepository personRepo) : ComponentBase
+public partial class PeoplePage(IPersonRepository personRepo) : ComponentBase, IDisposable
 {
     private ElementReference _nameInput;
 
@@ -20,5 +20,20 @@ public partial class PeoplePage(IPersonRepository personRepo) : ComponentBase
     private async Task Remove(Person person)
     {
         await personRepo.Delete(person.Id);
+    }
+
+    private void StateChange()
+    {
+        InvokeAsync(StateHasChanged);
+    }
+
+    protected override void OnInitialized()
+    {
+        personRepo.OnChange += StateChange;
+    }
+
+    public void Dispose()
+    {
+        personRepo.OnChange -= StateChange;
     }
 }

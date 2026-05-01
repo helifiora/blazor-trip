@@ -19,24 +19,30 @@ public partial class NewTransactionCard : ComponentBase
 
     private InputText? _nameRef;
 
-    public void Reset()
+    protected override void OnInitialized()
     {
+        _model = NewTransactionModel.NewWithSharedAdded(People.Select(s => s.Id));
     }
 
-    private async Task Submit()
+    private async Task Submit(EditContext context)
     {
         var item = Transaction.Create(
             _model.Name,
             _model.Amount,
             _model.CategoryId,
             _model.PayerId,
-            _model.SharedIds);
+            _model.SharedIds
+        );
 
         await OnSubmit.InvokeAsync(item);
-        _model.Reset();
+
+        _model = NewTransactionModel.NewWithSharedAdded(People.Select(s => s.Id));
+        await InvokeAsync(StateHasChanged);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));        
         if (_nameRef?.Element is ElementReference e)
         {
             await e.FocusAsync();
         }
+
     }
 }

@@ -10,4 +10,6 @@ public interface ICategoryRepository
     public Category? GetById(Guid id);
     public Task<Category> Create(string name, string logo);
     public Task Delete(Guid id);
+    
+    public Task Import(IEnumerable<Category> categories);
 }

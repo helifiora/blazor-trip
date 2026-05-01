@@ -14,4 +14,6 @@ public interface ITransactionRepository
     public Task<Transaction> Update(Transaction transaction);
 
     public Task Delete(Guid id);
+    
+    public Task Import(IEnumerable<Transaction> transactions);
 }
