@@ -1,11 +1,14 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
 
 namespace BlazorTrip.Web.Components;
 
-public partial class SelectCategoryIcon : ComponentBase
+public partial class SelectCategoryIcon(IJSRuntime jsRuntime) : ComponentBase
 {
     private readonly string _uniqueId = Guid.NewGuid().ToString("N");
-    
+
+    private ElementReference _popoverTarget;
+
     [Parameter] [EditorRequired] public string Value { get; set; }
 
     [Parameter] [EditorRequired] public EventCallback<string> ValueChanged { get; set; }
@@ -16,6 +19,12 @@ public partial class SelectCategoryIcon : ComponentBase
     {
         Value = selected;
         await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task OnIconClicked(string selected)
+    {
+        await OnIconSelected(selected);
+        await jsRuntime.InvokeVoidAsync("popoverHelper.close", _popoverTarget);
     }
 
     public static readonly string[] AvailableIcons =
@@ -29,6 +38,7 @@ public partial class SelectCategoryIcon : ComponentBase
         // Transporte e Viagem
         "ph-airplane-takeoff",
         "ph-car",
+        "ph-signpost",
 
         // Construções e Moradia
         "ph-house-simple",
@@ -44,6 +54,14 @@ public partial class SelectCategoryIcon : ComponentBase
         "ph-article",
         "ph-book",
         "ph-baby-carriage",
-        "ph-balloon"
+        "ph-balloon",
+        "ph-alarm",
+        "ph-scan",
+        "ph-bag",
+        "ph-bread",
+        "ph-camera",
+        "ph-coin",
+        "ph-database",
+        "ph-warehouse"
     ];
 }

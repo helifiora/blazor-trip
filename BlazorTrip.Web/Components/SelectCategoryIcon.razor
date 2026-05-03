@@ -1,10 +1,11 @@
-<div id="@_uniqueId" popover="auto" class="select-category-icon-grid">
-    @foreach (var item in AvailableIcons)
+<div @ref="_popoverTarget" id="@_uniqueId" popover="auto" class="select-category-icon-grid">
+    @foreach (var (item, index) in AvailableIcons.Select((v, i) => (v, i)))
     {
         <label class="select-category-icon">
             <input type="radio" name="@GroupName"
                    checked="@(Value == item)"
-                   @onchange="@(() => OnIconSelected(item))"/>
+                   @onchange="@(() => OnIconSelected(item))"
+                   autofocus="@(Value == item)"/>
             <i class="ph @item"></i>
         </label>
     }
