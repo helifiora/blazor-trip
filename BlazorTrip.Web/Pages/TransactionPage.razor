@@ -28,10 +28,9 @@
         </button>
     </div>
 
-    <TransactionTable Transactions="_transactions"
+    <TransactionTable Transactions="transactionRepository.TransactionDtos"
                       OnDelete="Delete"
                       OnEdit="ToUpdate"/>
-
 
     <AppModal @bind-Visible="_isUpdateVisible">
         @if (_selected is not null)

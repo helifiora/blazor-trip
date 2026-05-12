@@ -12,7 +12,7 @@ public partial class PeoplePage(IPersonRepository personRepo) : ComponentBase, I
 
     private async Task AddNewPerson()
     {
-        await personRepo.Create(_name);
+        await personRepo.Save(_name);
         _name = "";
         await _nameInput.FocusAsync();
     }
@@ -21,19 +21,16 @@ public partial class PeoplePage(IPersonRepository personRepo) : ComponentBase, I
     {
         await personRepo.Delete(person.Id);
     }
-
-    private void StateChange()
-    {
-        InvokeAsync(StateHasChanged);
-    }
-
+    
     protected override void OnInitialized()
     {
-        personRepo.OnChange += StateChange;
+        personRepo.OnChange += UpdateUi;
     }
 
     public void Dispose()
     {
-        personRepo.OnChange -= StateChange;
+        personRepo.OnChange -= UpdateUi;
     }
+
+    private void UpdateUi() => InvokeAsync(StateHasChanged);
 }

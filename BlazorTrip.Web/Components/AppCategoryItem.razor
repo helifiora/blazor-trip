@@ -4,8 +4,17 @@
 
     <span class="app-category-item__name">@Category.Name</span>
 
-    <button class="app-icon-button" @onclick="Remove">
-        <i class="ph ph-x"></i>
-    </button>
+    <div style="display: flex; gap: 0.25rem">
+        @if (HasActionButtons)
+        {
+            <button class="app-icon-button" @onclick="Edit">
+                <i class="ph ph-pen"></i>
+            </button>
+
+            <button class="app-icon-button" @onclick="Remove">
+                <i class="ph ph-x"></i>
+            </button>
+        }
+    </div>
 
 </div>

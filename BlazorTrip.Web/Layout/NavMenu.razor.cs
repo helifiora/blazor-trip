@@ -1,11 +1,13 @@
 using BlazorTrip.Web.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.JSInterop;
 
 namespace BlazorTrip.Web.Layout;
 
 public partial class NavMenu(
-    CsvService csvService
+    CsvService csvService,
+    IJSRuntime  jsRuntime
 ) : ComponentBase
 {
     private async Task Upload(InputFileChangeEventArgs e)
@@ -18,6 +20,8 @@ public partial class NavMenu(
 
     private async Task Download()
     {
-        await csvService.Export();
+        var bytes = await csvService.Export();
+        var base64String = Convert.ToBase64String(bytes);
+        await jsRuntime.InvokeVoidAsync("downloadCsv", "minha-viagem.csv", base64String);
     }
 }

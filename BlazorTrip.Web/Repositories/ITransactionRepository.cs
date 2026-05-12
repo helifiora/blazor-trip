@@ -1,19 +1,17 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Web.Dtos;
 
 namespace BlazorTrip.Web.Repositories;
 
-public interface ITransactionRepository
+public interface ITransactionRepository : IDisposable
 {
-    public event Action? OnChange;
-
-    public IQueryable<Transaction> Transactions { get; }
-
-    public Transaction? GetById(Guid id);
-
-    public Task<Transaction> Create(Transaction transaction);
-    public Task<Transaction> Update(Transaction transaction);
-
-    public Task Delete(Guid id);
-    
-    public Task Import(IEnumerable<Transaction> transactions);
+    event Action? OnChange;
+    IEnumerable<Transaction> Transactions { get; }
+    IEnumerable<TransactionDto> TransactionDtos { get; }
+    Transaction? GetById(Guid id);
+    Task<Transaction> Create(Transaction transaction);
+    Task Update(Transaction transaction);
+    Task Delete(Guid id);
+    Task Import(IEnumerable<Transaction> transactions);
+    void NotifyStateChanged();
 }

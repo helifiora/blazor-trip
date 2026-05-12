@@ -71,7 +71,7 @@
     font-family: "Sora", sans-serif;
     transition: 0.3s ease;
     border: 2px solid var(--ds-sys-color-primary);
-    background: oklch(from var(--ds-sys-color-primary) l c h / 5%);
+    background: var(--ds-sys-color-background);
 
     &:hover {
         background: oklch(from var(--ds-sys-color-primary) l c h / 10%);

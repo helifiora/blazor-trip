@@ -7,8 +7,9 @@ namespace BlazorTrip.Web.Pages;
 
 public partial class ReportPage(
     ReportFacade reportFacade,
-    IPersonRepository personRepository
-) : ComponentBase
+    IPersonRepository personRepository,
+    ITransactionRepository transactionRepository
+) : ComponentBase, IDisposable
 {
     private bool _previewIsVisible;
 
@@ -19,5 +20,20 @@ public partial class ReportPage(
         _reports = personRepository.People
             .Select(p => reportFacade.GenerateReportFrom(p.Id))
             .ToList();
+
+        transactionRepository.OnChange += UpdateUi;
+    }
+
+    public void Dispose()
+    {
+        transactionRepository.OnChange -= UpdateUi;
+    }
+
+    private void UpdateUi()
+    {
+        _reports = personRepository.People
+            .Select(p => reportFacade.GenerateReportFrom(p.Id))
+            .ToList();
+        InvokeAsync(StateHasChanged);
     }
 }

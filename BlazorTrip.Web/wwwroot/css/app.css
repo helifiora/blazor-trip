@@ -380,6 +380,8 @@ ul, li {
     border: none;
     padding: 0;
     transition: 0.3s ease;
+    overflow-y: auto;
+    max-height: calc(100% - 4rem);
 }
 
 

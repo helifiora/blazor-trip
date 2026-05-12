@@ -7,10 +7,26 @@
                 IconName="ph ph-tag-simple"/>
 
 
-    <form class="app-card" style="margin-bottom: 2rem; grid-template-columns: 1fr auto auto;
-    gap: 1rem;" @onsubmit="AddCategory">
+    <form class="app-card category-edit-card @IsEditCss"
+          @onsubmit="AddCategory">
 
-        <h2 class="app-title" style="margin-bottom: 1rem">Nova Categoria</h2>
+        <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center">
+            <h2 class="app-title" style="margin-bottom: 1rem">
+                @if (_id is null)
+                {
+                    <span>Nova Categoria</span>
+                }
+                else
+                {
+                    <span>Editar categoria</span>
+                }
+            </h2>
+
+            @if (_id is not null)
+            {
+                <button class="app-button" @onclick="CancelEditCategory">Cancelar</button>
+            }
+        </div>
 
         <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: flex-end">
 
@@ -24,7 +40,14 @@
                    @bind="_name"/>
 
             <button type="submit" class="app-button">
-                <span>Criar</span>
+                @if (_id is null)
+                {
+                    <span>Criar</span>
+                }
+                else
+                {
+                    <span>Editar</span>
+                }
             </button>
 
         </div>
@@ -32,13 +55,18 @@
     </form>
 
 
-    <div style="justify-content: center; display: grid; grid-template-columns: repeat(auto-fit, 15rem); gap: 1rem">
+    <div
+        style="justify-content: center; display: grid; grid-template-columns: repeat(auto-fit, minmax(10rem, 18rem)); gap: 1rem">
 
         @foreach (var item in categoryRepo.Categories)
         {
-            <AppCategoryItem Category="item"
-                             OnRemoved="RemoveCategory"
-                             @key="item.Id"/>
+            <AppCategoryItem
+                @key="item.Id"
+                Category="item"
+                OnRemoved="RemoveCategory"
+                OnEdited="EditCategory"
+                HasActionButtons="@(_id is null)"
+            />
         }
 
     </div>

@@ -1,15 +1,19 @@
-using System.ComponentModel;
 using BlazorTrip.Domain;
+using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace BlazorTrip.Web.Repositories;
 
 public interface ICategoryRepository
 {
-    public event Action? OnChange;
-    public IEnumerable<Category> Categories { get; }
-    public Category? GetById(Guid id);
-    public Task<Category> Create(string name, string logo);
-    public Task Delete(Guid id);
-    
-    public Task Import(IEnumerable<Category> categories);
+    event Action? OnChange;
+    IEnumerable<Category> Categories { get; }
+    Category? GetById(Guid id);
+    Task Save(string name, string logo);
+    Task Update(Category category);
+    Task Delete(Guid id);
+    Task Import(IEnumerable<Category> categories);
+    void NotifyChangedState();
 }
+
+public class CategoryChangedMessage(List<Category> categories) : 
+    ValueChangedMessage<List<Category>>(categories);

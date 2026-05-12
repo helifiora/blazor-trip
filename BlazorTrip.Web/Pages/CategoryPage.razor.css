@@ -1,0 +1,9 @@
+.category-edit-card {
+    margin-bottom: 2rem;
+    grid-template-columns: 1fr auto auto;
+    gap: 1rem;
+    
+    &.-edit {
+        background-color: oklch(from var(--ds-sys-color-primary) 0.97 0.05 h);
+    }
+}

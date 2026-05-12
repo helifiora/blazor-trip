@@ -11,12 +11,9 @@ public partial class TransactionPage(
     IPersonRepository personRepository,
     ICategoryRepository categoryRepository,
     ITransactionRepository transactionRepository,
-    SelectTransactionDto selector,
     IJSRuntime jsRuntime
 ) : ComponentBase, IDisposable
 {
-    private IEnumerable<TransactionDto> _transactions = [];
-
     private TransactionDto? _selected;
 
     private bool _isUpdateVisible;
@@ -25,18 +22,14 @@ public partial class TransactionPage(
 
     private IJSObjectReference? _jsModule;
 
-    private void Reload()
-    {
-        _transactions = selector.GetAll().ToList();
-        InvokeAsync(StateHasChanged);
-    }
+
+    private void UpdateUi() => InvokeAsync(StateHasChanged);
 
     protected override void OnInitialized()
     {
-        personRepository.OnChange += Reload;
-        categoryRepository.OnChange += Reload;
-        transactionRepository.OnChange += Reload;
-        Reload();
+        transactionRepository.OnChange += UpdateUi;
+        categoryRepository.OnChange += UpdateUi;
+        categoryRepository.OnChange += UpdateUi;
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -49,9 +42,9 @@ public partial class TransactionPage(
 
     public void Dispose()
     {
-        personRepository.OnChange -= Reload;
-        categoryRepository.OnChange -= Reload;
-        transactionRepository.OnChange -= Reload;
+        transactionRepository.OnChange -= UpdateUi;
+        categoryRepository.OnChange -= UpdateUi;
+        categoryRepository.OnChange -= UpdateUi;
     }
 
     public async Task Submit(Transaction transaction)
