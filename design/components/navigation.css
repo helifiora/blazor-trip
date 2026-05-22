@@ -1,0 +1,74 @@
+/* ==========================================================================
+   NAVIGATION COMPONENT (BEM & Bulma Conventions)
+   ========================================================================== */
+
+/* Main Navigation Sidebar (Block: .app-nav-menu, maps to original .nav-menu) */
+.app-nav-menu,
+.nav-menu {
+    background-color: transparent;
+    border-right: var(--app-sys-shape-border-width-medium) solid var(--app-sys-color-outline);
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    gap: 1rem;
+    height: 100%;
+
+    /* Title Element */
+    &__title,
+    .nav-menu__title {
+        font-family: var(--app-sys-typescale-display-font), sans-serif;
+        font-size: 2rem;
+        color: var(--app-sys-color-primary);
+        margin-bottom: 2rem;
+    }
+
+    /* Container holding links */
+    &__container,
+    .nav-menu__container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Link item element */
+    &__link,
+    .nav-menu__link {
+        display: grid;
+        grid-template-columns: 1rem 1fr;
+        gap: 1rem;
+        align-items: center;
+        text-decoration: none;
+        padding: 0.5rem 1rem;
+        transition: background-color 0.3s ease;
+        border-radius: var(--app-sys-shape-corner-small);
+        color: var(--app-sys-color-primary);
+        font-weight: var(--app-sys-typescale-weight-medium);
+
+        &:hover {
+            background-color: oklch(from var(--app-sys-color-primary) l c h / 8%);
+            text-decoration: none;
+        }
+        
+        /* Active indicator (Bulma style / BEM) */
+        &.is-active,
+        &.active,
+        &.nav-menu__link--active {
+            background-color: oklch(from var(--app-sys-color-primary) l c h / 20%) !important;
+        }
+    }
+
+    /* Footer element */
+    &__footer,
+    .nav-menu__footer {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+}
+
+/* Fallback for deep selectors in Blazor layout rendering */
+::deep .nav-menu__link.active,
+::deep .active {
+    background-color: oklch(from var(--app-sys-color-primary) l c h / 20%) !important;
+}

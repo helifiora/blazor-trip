@@ -9,50 +9,62 @@
     </div>
 
 
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
+    <div style="display: grid; grid-template-columns: 5fr auto 7fr; gap: 1rem;">
 
 
-        <div style="display: flex; flex-direction: column; gap: 0.25rem">
-            <p class="app-text -sm -bold">Valor total</p>
-            <p class="app-text -lg">@Transaction.Amount.ToString("C")</p>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 0.25rem">
-            <p class="app-text -sm -bold">Pago por</p>
-            <p class="app-text -lg">@Transaction.Payer.Name</p>
-        </div>
-
-        <div style="display: flex; flex-direction: column; gap: 0.25rem">
-            <p class="app-text -sm -bold">Categoria</p>
-            <p class="app-text -lg">
-                <span>@Transaction.Category.Name</span>
-                <i class="ph @Transaction.Category.Logo"></i>
-            </p>
-        </div>
-
-
-        <div>
-            <p class="app-text -sm -bold">
-                @SharedTitle()
-            </p>
-            <div
-                style="display: flex; flex-direction: column; gap: 0.25rem; margin-top: 0.25rem">
-                @foreach (var item in Transaction.Shared)
-                {
-                    <p @key="item.Id" class="app-text -lg @(() => item.Id == Transaction.Payer.Id ? "-bold" : "")">
-                        @item.Name
-                    </p>
-                }
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+            
+            <div style="display: flex; flex-direction: column; gap: 0.25rem">
+                <p class="app-text -sm -bold">Pago por</p>
+                <p class="app-text -lg">@Transaction.Payer.Name</p>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 0.25rem">
+                <p class="app-text -sm -bold">Categoria</p>
+                <p class="app-text -lg" style="display: flex; align-items: center; gap: 0.5rem">
+                    <i class="ph @Transaction.Category.Logo"></i>
+                    <span>@Transaction.Category.Name</span>
+                </p>
             </div>
 
+            <div style="flex: 1"></div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <p class="app-text -sm -bold">Valor total</p>
+                <p class="app-text -lg">@Transaction.Amount.ToString("C")</p>
+            </div>
         </div>
 
-        <div style="display: flex; flex-direction: column; gap: 0.25rem">
-            <p class="app-text -sm -bold">
-                @(Transaction.Shared.Count() > 0 ? "Valor dividido" : "Valor pago")
-            </p>
-            <p class="app-text -lg">@SharedAmount.ToString("C")</p>
+        <div style="width: 2px; background: oklch(from var(--app-sys-color-primary) l c h / 8%)"></div>
+
+        <div style="display: flex; flex-direction: column; gap: 1rem">
+
+            <div style="flex: 1">
+                <p class="app-text -sm -bold">
+                    @SharedTitle()
+                </p>
+                <div
+                    style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.25rem">
+                    @foreach (var item in Transaction.Shared)
+                    {
+                        <p @key="item.Id" class="app-text -lg @(() => item.Id == Transaction.Payer.Id ? "-bold" : "")">
+                            @item.Name
+                        </p>
+                    }
+                </div>
+
+            </div>
+
+
+            <div style="display: flex; flex-direction: column; gap: 0.25rem;">
+                <p class="app-text -sm -bold">
+                    @(Transaction.Shared.Count() > 0 ? "Valor dividido" : "Valor pago")
+                </p>
+                <p class="app-text -lg">@SharedAmount.ToString("C")</p>
+            </div>
         </div>
+
     </div>
+
 
 </div>

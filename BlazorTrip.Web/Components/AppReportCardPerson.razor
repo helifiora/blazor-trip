@@ -2,7 +2,7 @@
     <div class="c-person-header @(Payer.Shares.Any() ? "-opened" : "")">
         <p class="app-text -medium">@Payer.PersonToPay.Name</p>
         <div class="c-amount-container">
-            <span class="app-text @GetAmountClass(Payer.ValueToPay)">
+            <span class="app-text -bold @GetAmountClass(Payer.ValueToPay)">
                 @if (Payer.ValueToPay != 0)
                 {
                     @decimal.Abs(Payer.ValueToPay).ToString("C")
@@ -16,16 +16,13 @@
     </div>
     @if (Payer.Shares.Any())
     {
-        <div style="padding: 0 1.5rem">
-            <div style="height: 1px; background: oklch(from var(--ds-sys-color-primary) l c h / 14%); width: 100%"></div>
-        </div>
         <ul class="c-person-content">
             @foreach (var share in Payer.Shares)
             {
                 <li class="c-person-transaction">
-                    <i class="ph @share.Category.Logo"></i>
+                    <i class="ph @share.Transaction.Category.Logo"></i>
 
-                    <span class="app-text -sm">
+                    <span class="app-text -sm" @onclick="@(() => OnDetailTransaction.InvokeAsync(share.Transaction))">
                         @share.Transaction.Name
                     </span>
 

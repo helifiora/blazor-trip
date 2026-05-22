@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.JSInterop;
 
 namespace BlazorTrip.Web.Components;
 
-public partial class AppModal(IJSRuntime jsRuntime) : ComponentBase
+public partial class AppModal(IJSRuntime jsRuntime) : ComponentBase, IAsyncDisposable
 {
     private bool _lastVisible;
 
@@ -17,6 +18,11 @@ public partial class AppModal(IJSRuntime jsRuntime) : ComponentBase
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
+        if (firstRender)
+        {
+            await jsRuntime.InvokeVoidAsync("dialogHelper.addBackdropClick", _modalRef);
+        }
+
         if (Visible && !_lastVisible)
         {
             _lastVisible = true;
@@ -29,6 +35,7 @@ public partial class AppModal(IJSRuntime jsRuntime) : ComponentBase
         }
     }
 
+
     private async Task Close()
     {
         if (Visible)
@@ -36,5 +43,10 @@ public partial class AppModal(IJSRuntime jsRuntime) : ComponentBase
             Visible = false;
             await VisibleChanged.InvokeAsync(false);
         }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        await jsRuntime.InvokeVoidAsync("dialogHelper.removeBackdropClick", _modalRef);
     }
 }

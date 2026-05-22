@@ -1,0 +1,96 @@
+:root {
+    /* ========================================== */
+    /* REFERENCE TOKENS (REF)                     */
+    /* ========================================== */
+    
+    /* Base Color Palette */
+    --app-ref-color-royal: oklch(0.485 0.131 259.095);
+    --app-ref-color-charcoal: oklch(0.255 0.021 91.585);
+    --app-ref-color-negative: oklch(0.65 0.23 25);
+    --app-ref-color-positive: oklch(0.70 0.22 145);
+    --app-ref-color-cream: oklch(0.975 0.022 91.585);
+    --app-ref-color-sand: oklch(0.992 0.014 92.585);
+
+    /* ========================================== */
+    /* SYSTEM TOKENS (SYS)                       */
+    /* ========================================== */
+    
+    /* Core Colors */
+    --app-sys-color-primary: var(--app-ref-color-charcoal);
+    --app-sys-color-on-primary: #ffffff;
+    
+    --app-sys-color-background: var(--app-ref-color-cream);
+    --app-sys-color-on-background: var(--app-ref-color-charcoal);
+    
+    --app-sys-color-surface: var(--app-ref-color-sand);
+    --app-sys-color-on-surface: var(--app-ref-color-charcoal);
+    --app-sys-color-surface-variant: oklch(from var(--app-sys-color-primary) 0.97 0.05 h);
+    
+    --app-sys-color-error: var(--app-ref-color-negative);
+    --app-sys-color-on-error: #ffffff;
+    
+    --app-sys-color-success: var(--app-ref-color-positive);
+    --app-sys-color-on-success: #ffffff;
+    
+    --app-sys-color-outline: var(--app-sys-color-primary);
+    --app-sys-color-muted: oklch(from var(--app-sys-color-primary) l c h / 60%);
+
+    /* Typography families */
+    --app-sys-typescale-display-font: "Bebas Neue", sans-serif;
+    --app-sys-typescale-body-font: "Sora", sans-serif;
+
+    /* Typography weights */
+    --app-sys-typescale-weight-regular: 400;
+    --app-sys-typescale-weight-medium: 600;
+    --app-sys-typescale-weight-bold: 700;
+
+    /* Typescales: Display / Title */
+    --app-sys-typescale-display-large-size: 2.5rem;
+    --app-sys-typescale-display-large-line-height: 1.1;
+
+    --app-sys-typescale-display-medium-size: 2rem;
+    --app-sys-typescale-display-medium-line-height: 1.15;
+
+    --app-sys-typescale-display-small-size: 1.5rem;
+    --app-sys-typescale-display-small-line-height: 1.2;
+
+    /* Typescales: Body */
+    --app-sys-typescale-body-large-size: 1.25rem;
+    --app-sys-typescale-body-large-line-height: 1.45;
+
+    --app-sys-typescale-body-medium-size: 1rem;
+    --app-sys-typescale-body-medium-line-height: 1.5;
+
+    --app-sys-typescale-body-small-size: 0.875rem;
+    --app-sys-typescale-body-small-line-height: 1.5;
+
+    /* Shapes & Borders */
+    --app-sys-shape-corner-none: 0;
+    --app-sys-shape-corner-small: 0.125rem;
+    --app-sys-shape-corner-medium: 0.25rem;
+    --app-sys-shape-border-width-thin: 1px;
+    --app-sys-shape-border-width-medium: 2px;
+    --app-sys-shape-border-width-thick: 4px;
+
+    /* ========================================== */
+    /* COMPONENT TOKENS (COMP)                   */
+    /* ========================================== */
+    
+    /* Buttons */
+    --app-comp-button-height-sm: 2rem;
+    --app-comp-button-height-md: 2.5rem;
+    --app-comp-button-height-lg: 3rem;
+    
+    --app-comp-button-shadow: 0.125rem 0.125rem 0 0 var(--app-sys-color-primary);
+    --app-comp-button-shadow-transform: translate(0, 0);
+
+    --app-comp-button-shadow-hover: 0.0625rem 0.0625rem 0 0 var(--app-sys-color-primary);
+    --app-comp-button-shadow-transform-hover: translate(0.125rem, 0.125rem);
+
+    --app-comp-button-shadow-active: 0 0 0 0 var(--app-sys-color-primary);
+    --app-comp-button-shadow-transform-active: translate(0.25rem, 0.25rem);
+
+    /* Cards / Boxes */
+    --app-comp-card-shadow: 2px 2px 0 0 var(--app-sys-color-primary);
+    --app-comp-card-shadow-thick: 6px 6px 0 0 var(--app-sys-color-primary);
+}

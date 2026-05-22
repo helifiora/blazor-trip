@@ -1,0 +1,89 @@
+/* ==========================================================================
+   CSS RESET & BASE STYLES
+   ========================================================================== */
+
+/* 1. box-sizing model */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* 2. Remove default margin (excluding dialog) */
+*:not(dialog) {
+    margin: 0;
+}
+
+/* 3. Smooth height animations */
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        interpolate-size: allow-keywords;
+    }
+}
+
+/* 4. Body & HTML setup */
+html, body {
+    font-family: var(--app-sys-typescale-body-font), sans-serif;
+    font-weight: var(--app-sys-typescale-weight-regular);
+    font-size: var(--app-sys-typescale-body-medium-size);
+    line-height: var(--app-sys-typescale-body-medium-line-height);
+    background-color: var(--app-sys-color-background);
+    color: var(--app-sys-color-on-background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html, body, #app {
+    height: 100dvh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* 5. Focus & Outline defaults */
+h1:focus {
+    outline: none;
+}
+
+/* 6. Media defaults */
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+}
+
+/* 7. Inherit fonts for form inputs */
+input, button, textarea, select {
+    font: inherit;
+}
+
+/* 8. Text wrapping & overflow */
+p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+}
+
+p {
+    text-wrap: pretty;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+}
+
+/* 9. Root stacking context */
+#root, #__next {
+    isolation: isolate;
+}
+
+/* 10. Lists & Links */
+ul, li {
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+}
+
+a {
+    color: var(--app-sys-color-primary);
+    text-decoration: none;
+    
+    &:hover {
+        text-decoration: underline;
+    }
+}

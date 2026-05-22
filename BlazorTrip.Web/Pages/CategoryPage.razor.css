@@ -4,6 +4,6 @@
     gap: 1rem;
     
     &.-edit {
-        background-color: oklch(from var(--ds-sys-color-primary) 0.97 0.05 h);
+        background-color: oklch(from var(--app-sys-color-primary) 0.97 0.05 h);
     }
 }

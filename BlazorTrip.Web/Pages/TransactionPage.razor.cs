@@ -1,6 +1,5 @@
 using BlazorTrip.Domain;
 using BlazorTrip.Web.Dtos;
-using BlazorTrip.Web.Queries;
 using BlazorTrip.Web.Repositories;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;

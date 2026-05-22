@@ -1,0 +1,25 @@
+.app-progress-container {
+    height: 1.125rem;
+    width: 100%;
+    display: block;
+    margin: 0;
+    padding: 1px;
+    border: 1px solid oklch(from var(--app-sys-color-primary) l c h / 40%);
+    position: relative;
+}
+
+.app-progress-bar {
+    height: 100%;
+    background: var(--app-sys-color-primary);
+}
+
+.app-progress-text {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    color: white;
+    mix-blend-mode: difference;
+}

@@ -1,0 +1,54 @@
+/* ==========================================================================
+   TABLE COMPONENT (BEM & Bulma Conventions)
+   ========================================================================== */
+
+.app-table,
+table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    width: 100%;
+    border: var(--app-sys-shape-border-width-thin) solid var(--app-sys-color-outline);
+    box-shadow: var(--app-comp-card-shadow);
+    background-color: var(--app-sys-color-background);
+    transition: all 0.3s ease;
+
+    /* Cell styling */
+    th, td,
+    &__cell {
+        height: 2.5rem;
+        padding: 0.5rem 1.5rem;
+        text-align: left;
+    }
+
+    /* Head cells styling */
+    th,
+    &__cell--header {
+        font-family: var(--app-sys-typescale-body-font), sans-serif;
+        font-weight: var(--app-sys-typescale-weight-medium);
+        font-size: var(--app-sys-typescale-body-medium-size);
+        line-height: var(--app-sys-typescale-body-medium-size);
+        color: var(--app-sys-color-primary);
+    }
+
+    /* Row borders and states */
+    tr:has(th),
+    &__row--header {
+        border-bottom: var(--app-sys-shape-border-width-medium) solid var(--app-sys-color-outline);
+    }
+
+    /* Striped rows modifier (Bulma syntax / BEM) */
+    &.is-striped, &--striped {
+        tr:has(td):nth-child(even),
+        tbody tr:nth-child(even) {
+            background-color: oklch(from var(--app-sys-color-primary) l c h / 7%);
+        }
+    }
+    
+    /* Hover state for rows */
+    &.is-hoverable, &--hoverable {
+        tr:has(td):hover,
+        tbody tr:hover {
+            background-color: oklch(from var(--app-sys-color-primary) l c h / 4%);
+        }
+    }
+}

@@ -1,0 +1,174 @@
+/* ==========================================================================
+   LAYOUT, GRID, AND UTILITIES (Bulma-style & BEM Layout)
+   ========================================================================== */
+
+/* 1. App Main Layout (BEM) */
+.app-layout {
+    height: 100dvh;
+    display: grid;
+    grid-template-columns: 15rem 1fr;
+    overflow: hidden;
+}
+
+.app-layout__sidebar {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.app-layout__content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.app-layout__container {
+    padding: 2rem 3rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 2. Page Container & Animations */
+.app-page {
+    opacity: 1;
+    transition: 0.5s ease-in-out;
+
+    @starting-style {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+    }
+}
+
+/* 3. Dot Texture Pattern */
+.app-dot-texture {
+    background: oklch(from var(--app-sys-color-background) l 0.023 h);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(0,0,0,0.2)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 24px 24px;
+}
+
+/* 4. Dividers */
+.app-divider {
+    height: 1px;
+    background-color: oklch(from var(--app-sys-color-outline) l c h / 12%);
+    border: none;
+    margin: 1rem 0;
+}
+
+.app-divider--vertical {
+    width: 2px;
+    align-self: stretch;
+    background-color: oklch(from var(--app-sys-color-outline) l c h / 8%);
+}
+
+.app-divider--variant {
+    border-top: 1px solid oklch(from var(--app-sys-color-outline) l c h / 20%);
+    border-bottom: 1px solid oklch(from var(--app-sys-color-outline) l c h / 20%);
+    margin: 1rem 0;
+}
+
+/* 5. Flexbox Utilities (Bulma Syntax) */
+.is-flex {
+    display: flex !important;
+}
+
+.is-flex-direction-column {
+    flex-direction: column !important;
+}
+
+.is-flex-grow-1 {
+    flex-grow: 1 !important;
+}
+
+.is-flex-1 {
+    flex: 1 !important;
+}
+
+.is-align-items-center {
+    align-items: center !important;
+}
+
+.is-align-items-flex-end {
+    align-items: flex-end !important;
+}
+
+.is-justify-content-between {
+    justify-content: space-between !important;
+}
+
+.is-justify-content-flex-end {
+    justify-content: flex-end !important;
+}
+
+.is-align-self-center {
+    align-self: center !important;
+}
+
+/* 6. Grid Utilities */
+.is-grid {
+    display: grid !important;
+}
+
+.is-grid-2-cols {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+}
+
+.is-grid-report-summary {
+    display: grid !important;
+    grid-template-columns: 7fr 5fr;
+}
+
+.is-grid-detail {
+    display: grid !important;
+    grid-template-columns: 5fr auto 7fr;
+}
+
+/* Responsive grid for items like Categories */
+.is-grid-responsive {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 18rem));
+    justify-content: center;
+}
+
+/* 7. Spacing & Gap Utilities (Bulma inspired) */
+.has-gap-0-125 { gap: 0.125rem !important; }
+.has-gap-0-25 { gap: 0.25rem !important; }
+.has-gap-0-5 { gap: 0.5rem !important; }
+.has-gap-1 { gap: 1rem !important; }
+.has-gap-2 { gap: 2rem !important; }
+
+/* Margins */
+.m-0 { margin: 0 !important; }
+.mt-0 { margin-top: 0 !important; }
+.mb-0 { margin-bottom: 0 !important; }
+
+.mt-1 { margin-top: 0.25rem !important; }
+.mb-1 { margin-bottom: 0.25rem !important; }
+.mt-2 { margin-top: 0.5rem !important; }
+.mb-2 { margin-bottom: 0.5rem !important; }
+.mt-4 { margin-top: 1rem !important; }
+.mb-4 { margin-bottom: 1rem !important; }
+.mt-6 { margin-top: 2rem !important; }
+.mb-6 { margin-bottom: 2rem !important; }
+
+/* Paddings */
+.p-0 { padding: 0 !important; }
+.p-4 { padding: 1rem !important; }
+.p-6 { padding: 1.5rem !important; }
+.py-4 { padding-top: 1rem !important; padding-bottom: 1rem !important; }
+.py-6 { padding-top: 1.5rem !important; padding-bottom: 1.5rem !important; }
+.px-4 { padding-left: 1rem !important; padding-right: 1rem !important; }
+.px-6 { padding-left: 1.5rem !important; padding-right: 1.5rem !important; }
+
+/* Width & Overflow helpers */
+.is-fullwidth {
+    width: 100% !important;
+}
+
+.has-overflow-y-auto {
+    overflow-y: auto !important;
+}
+
+.is-clickable {
+    cursor: pointer !important;
+}

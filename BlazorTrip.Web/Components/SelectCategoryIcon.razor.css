@@ -12,8 +12,8 @@
     grid-template-columns: repeat(auto-fit, 2.5rem);
     max-width: 20rem;
     padding: 0.5rem;
-    border: 4px solid var(--ds-sys-color-primary);
-    box-shadow: 6px 6px 0 0 var(--ds-sys-color-primary);
+    border: 4px solid var(--app-sys-color-primary);
+    box-shadow: 6px 6px 0 0 var(--app-sys-color-primary);
     gap: 0.5rem;
     background: oklch(0.992 0.014 92.585);
     margin: 0;
@@ -35,12 +35,12 @@
     transition: 0.3s ease;
 
     &:hover {
-        background-color: oklch(from var(--ds-sys-color-primary) l c h / 7%);
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 7%);
     }
 
     &:has(input:checked) {
         color: white;
-        background-color: oklch(from var(--ds-sys-color-primary) l c h / 80%);
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 80%);
     }
 
     i {
@@ -70,10 +70,10 @@
     font-size: 1.5rem;
     font-family: "Sora", sans-serif;
     transition: 0.3s ease;
-    border: 2px solid var(--ds-sys-color-primary);
-    background: var(--ds-sys-color-background);
+    border: 2px solid var(--app-sys-color-primary);
+    background: var(--app-sys-color-background);
 
     &:hover {
-        background: oklch(from var(--ds-sys-color-primary) l c h / 10%);
+        background: oklch(from var(--app-sys-color-primary) l c h / 10%);
     }
 }

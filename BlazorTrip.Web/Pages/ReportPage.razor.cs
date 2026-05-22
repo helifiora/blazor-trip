@@ -12,6 +12,7 @@ public partial class ReportPage(
 ) : ComponentBase, IDisposable
 {
     private bool _previewIsVisible;
+    private TransactionDto? _previewTransaction;
 
     private List<ReportDto> _reports = [];
 
@@ -35,5 +36,17 @@ public partial class ReportPage(
             .Select(p => reportFacade.GenerateReportFrom(p.Id))
             .ToList();
         InvokeAsync(StateHasChanged);
+    }
+
+    private void ClosePreview()
+    {
+        _previewTransaction = null;
+        _previewIsVisible = false;
+    }
+    
+    private void OpenPreview(TransactionDto transaction)
+    {
+        _previewTransaction = transaction;
+        _previewIsVisible = true;
     }
 }

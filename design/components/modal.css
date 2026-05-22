@@ -1,0 +1,40 @@
+/* ==========================================================================
+   MODAL COMPONENT (BEM & Bulma Conventions)
+   ========================================================================== */
+
+.app-modal-dialog,
+.app-modal,
+dialog {
+    padding: 0;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    transition: all 0.3s ease;
+    
+    /* Backdrop styling */
+    &::backdrop,
+    &__backdrop {
+        background-color: oklch(from var(--app-sys-color-primary) 0.12 c h / 40%);
+        transition: all 0.3s ease;
+    }
+    
+    /* Animation entry starting states */
+    @starting-style {
+        opacity: 0;
+        transform: translateY(-0.5rem);
+        
+        &::backdrop {
+            opacity: 0;
+        }
+    }
+}
+
+/* Modifiers for JS-based fallback implementations (Bulma syntax) */
+.app-modal.is-active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+}

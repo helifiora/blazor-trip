@@ -1,0 +1,146 @@
+/* ==========================================================================
+   BUTTON COMPONENT (Block: .app-button)
+   ========================================================================== */
+
+.app-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 8.75rem;
+    height: var(--app-comp-button-height-md);
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--app-sys-color-outline);
+    border-radius: var(--app-sys-shape-corner-small);
+    
+    font-family: var(--app-sys-typescale-body-font), sans-serif;
+    font-size: var(--app-sys-typescale-body-medium-size);
+    font-weight: var(--app-sys-typescale-weight-medium);
+    
+    background-color: oklch(from var(--app-sys-color-primary) l c h / 90%);
+    color: var(--app-sys-color-on-primary);
+    
+    box-shadow: var(--app-comp-button-shadow);
+    transform: var(--app-comp-button-shadow-transform);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+
+    /* Focus State */
+    &:focus, &.is-focused {
+        outline-color: oklch(from var(--app-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
+    }
+
+    /* Hover State */
+    &:hover, &.is-hovered {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 80%);
+        box-shadow: var(--app-comp-button-shadow-hover);
+        transform: var(--app-comp-button-shadow-transform-hover);
+    }
+
+    /* Active State */
+    &:active, &.is-active {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 80%);
+        box-shadow: var(--app-comp-button-shadow-active);
+        transform: var(--app-comp-button-shadow-transform-active);
+    }
+
+    /* Disabled State */
+    &[disabled], &.is-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+/* 1. Button Elements (BEM) */
+.app-button__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+/* 2. Button Modifiers (Bulma Syntax / BEM) */
+
+/* Size Modifiers */
+.app-button.is-small, .app-button--small {
+    height: var(--app-comp-button-height-sm);
+    font-size: var(--app-sys-typescale-body-small-size);
+    min-width: 6rem;
+    padding: 0.25rem 0.75rem;
+}
+
+.app-button.is-large, .app-button--large {
+    height: var(--app-comp-button-height-lg);
+    font-size: var(--app-sys-typescale-body-large-size);
+    min-width: 10rem;
+    padding: 0.75rem 1.5rem;
+}
+
+/* Outlined Modifier */
+.app-button.is-outlined, .app-button--outlined {
+    background-color: transparent;
+    color: var(--app-sys-color-primary);
+    box-shadow: none;
+    
+    &:hover {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 8%);
+        box-shadow: var(--app-comp-button-shadow-hover);
+    }
+    
+    &:active {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 15%);
+        box-shadow: var(--app-comp-button-shadow-active);
+    }
+}
+
+/* Text / Link style Button */
+.app-button.is-text, .app-button--text {
+    background: transparent;
+    border-color: transparent;
+    color: var(--app-sys-color-primary);
+    box-shadow: none;
+    min-width: auto;
+    
+    &:hover {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 8%);
+        box-shadow: none;
+        transform: none;
+    }
+    
+    &:active {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 15%);
+    }
+}
+
+/* 3. Icon Only Button Block (.app-icon-button) */
+.app-icon-button {
+    background: transparent;
+    border: none;
+    border-radius: var(--app-sys-shape-corner-medium);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--app-sys-color-primary);
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 10%);
+    }
+    
+    &:active {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 20%);
+    }
+    
+    &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+        background: transparent;
+    }
+}

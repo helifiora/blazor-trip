@@ -1,6 +1,6 @@
 .nav-menu {
     background: transparent;
-    border-right: 2px solid var(--ds-sys-color-primary);
+    border-right: 2px solid var(--app-sys-color-primary);
     padding: 2rem 1.5rem;
     overflow-y: auto;
     display: grid;
@@ -10,7 +10,7 @@
 
 .nav-menu__title {
     font-size: 2rem;
-    color: var(--ds-sys-color-primary);
+    color: var(--app-sys-color-primary);
     margin-bottom: 2rem;
 }
 
@@ -29,15 +29,15 @@
     padding: 0.5rem 1rem;
     transition: 0.3s ease;
     border-radius: 0.125rem;
-    color: var(--ds-sys-color-primary);
+    color: var(--app-sys-color-primary);
 
     &:hover {
-        background-color: oklch(from var(--ds-sys-color-primary) l c h / 8%);
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 8%);
     }
 }
 
 ::deep .active {
-    background-color: oklch(from var(--ds-sys-color-primary) l c h / 20%) !important;
+    background-color: oklch(from var(--app-sys-color-primary) l c h / 20%) !important;
 }
 
 .nav-menu__footer {

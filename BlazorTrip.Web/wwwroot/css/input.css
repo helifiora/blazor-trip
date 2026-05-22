@@ -1,6 +1,6 @@
 .app-input {
-    background: var(--ds-sys-color-background);
-    border: 2px solid var(--ds-sys-color-primary);
+    background: var(--app-sys-color-background);
+    border: 2px solid var(--app-sys-color-primary);
     height: 2.5rem;
     padding: 0.5rem 1rem;
     width: 100%;
@@ -13,7 +13,7 @@
     transition: 0.3s ease;
 
     &:focus {
-        outline-color: oklch(from var(--ds-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
+        outline-color: oklch(from var(--app-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
     }
 }
 

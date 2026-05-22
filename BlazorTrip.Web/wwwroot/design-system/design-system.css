@@ -1,0 +1,24 @@
+/* ==========================================================================
+   APP DESIGN SYSTEM - ENTRY POINT
+   ========================================================================== */
+
+/* 1. Core tokens and foundations */
+@import "tokens.css";
+@import "base.css";
+@import "layout.css";
+
+/* 2. Components */
+@import "components/typography.css";
+@import "components/button.css";
+@import "components/form.css";
+@import "components/card.css";
+@import "components/table.css";
+@import "components/modal.css";
+@import "components/progress.css";
+@import "components/navigation.css";
+@import "components/popover.css";
+
+
+[popover] {
+    overflow: visible;
+}

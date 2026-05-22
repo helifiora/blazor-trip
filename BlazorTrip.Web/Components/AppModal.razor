@@ -1,4 +1,6 @@
-<dialog @ref="_modalRef" @oncancel="Close" class="app-modal-dialog">
+<dialog @ref="_modalRef" 
+        @onclose="Close"
+        class="app-modal">
     @if (Visible)
     {
         @ChildContent

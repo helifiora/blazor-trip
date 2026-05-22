@@ -1,0 +1,99 @@
+/* ==========================================================================
+   TYPOGRAPHY COMPONENTS (BEM & Bulma conventions)
+   ========================================================================== */
+
+/* 1. Title Component (Block: .app-title) */
+.app-title {
+    font-family: var(--app-sys-typescale-display-font), sans-serif;
+    font-weight: var(--app-sys-typescale-weight-bold);
+    font-size: var(--app-sys-typescale-display-medium-size);
+    line-height: var(--app-sys-typescale-display-medium-line-height);
+    color: var(--app-sys-color-primary);
+
+    /* Bulma-style & BEM modifiers */
+    &.is-small, &--small, &.-sm {
+        font-size: var(--app-sys-typescale-display-small-size);
+        line-height: var(--app-sys-typescale-display-small-line-height);
+    }
+
+    &.is-large, &--large, &.-lg {
+        font-size: var(--app-sys-typescale-display-large-size);
+        line-height: var(--app-sys-typescale-display-large-line-height);
+    }
+
+    &.is-bold, &--bold, &.-bold {
+        font-weight: var(--app-sys-typescale-weight-bold);
+    }
+
+    &.is-negative, &--negative, &.-negative {
+        color: var(--app-sys-color-error);
+    }
+
+    &.is-positive, &--positive, &.-positive {
+        color: var(--app-sys-color-success);
+    }
+    
+    /* Bulma specific headings size helpers */
+    &.is-1 { font-size: 3rem; }
+    &.is-2 { font-size: 2.5rem; }
+    &.is-3 { font-size: 2rem; }
+    &.is-4 { font-size: 1.5rem; }
+    &.is-5 { font-size: 1.25rem; }
+}
+
+/* 2. Text/Body Component (Block: .app-text) */
+.app-text {
+    font-family: var(--app-sys-typescale-body-font), sans-serif;
+    font-weight: var(--app-sys-typescale-weight-regular);
+    font-size: var(--app-sys-typescale-body-medium-size);
+    line-height: var(--app-sys-typescale-body-medium-line-height);
+
+    /* Bulma-style & BEM modifiers */
+    &.is-small, &--small, &.-sm {
+        font-size: var(--app-sys-typescale-body-small-size);
+        line-height: var(--app-sys-typescale-body-small-line-height);
+    }
+
+    &.is-large, &--large, &.-lg {
+        font-size: var(--app-sys-typescale-body-large-size);
+        line-height: var(--app-sys-typescale-body-large-line-height);
+    }
+
+    &.is-bold, &--bold, &.-bold {
+        font-weight: var(--app-sys-typescale-weight-bold);
+    }
+
+    &.is-medium, &--medium, &.-medium {
+        font-weight: var(--app-sys-typescale-weight-medium);
+    }
+
+    &.is-italic, &--italic, &.-italic {
+        font-style: italic;
+    }
+
+    &.is-negative, &--negative, &.-negative {
+        color: var(--app-sys-color-error);
+    }
+
+    &.is-positive, &--positive, &.-positive {
+        color: var(--app-sys-color-success);
+    }
+
+    &.is-muted, &--muted, &.-muted {
+        color: var(--app-sys-color-muted);
+    }
+}
+
+/* 3. Link Decoration modifier (Bulma syntax) */
+.is-underlined {
+    text-decoration: underline !important;
+}
+
+/* Simple inline style code block */
+code {
+    font-family: monospace;
+    color: #c02d76;
+    background: oklch(from var(--app-sys-color-primary) 0.95 0.01 h);
+    padding: 0.125rem 0.25rem;
+    font-size: 0.875rem;
+}

@@ -54,11 +54,11 @@
     }
 
     &.-negative {
-        color: var(--ds-sys-color-negative);
+        color: var(--app-sys-color-negative);
     }
 
     &.-positive {
-        color: var(--ds-sys-color-positive);
+        color: var(--app-sys-color-positive);
     }
 }
 
@@ -91,14 +91,14 @@
     }
 
     &.-negative {
-        color: var(--ds-sys-color-negative);
+        color: var(--app-sys-color-negative);
     }
 
     &.-positive {
-        color: var(--ds-sys-color-positive);
+        color: var(--app-sys-color-positive);
     }
 
     &.-muted {
-        color: oklch(from var(--ds-sys-color-primary) l c h / 60%);
+        color: oklch(from var(--app-sys-color-primary) l c h / 60%);
     }
 }

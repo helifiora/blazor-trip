@@ -26,7 +26,7 @@ public record Transaction(
         return Amount / SharedIds.Count();
     }
 
-    public IEnumerable<TransactionShare> CalculateTransactionShares()
+    public IEnumerable<TransactionShare> CreateTransactionShares()
     {
         var amountPerPerson = CalculateAmountPerPerson();
         return SharedIds

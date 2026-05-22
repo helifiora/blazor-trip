@@ -6,13 +6,13 @@
     --comp-button-height-md: 2.5rem;
     --comp-button-height-lg: 3rem;
 
-    --comp-button-shadow: 0.125rem 0.125rem 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow: 0.125rem 0.125rem 0 0 var(--app-sys-color-primary);
     --comp-button-shadow-transform: translate(0, 0);
 
-    --comp-button-shadow-hover: 0.0625rem 0.0625rem 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow-hover: 0.0625rem 0.0625rem 0 0 var(--app-sys-color-primary);
     --comp-button-shadow-transform-hover: translate(0.125rem, 0.125rem);
 
-    --comp-button-shadow-active: 0 0 0 0 var(--ds-sys-color-primary);
+    --comp-button-shadow-active: 0 0 0 0 var(--app-sys-color-primary);
     --comp-button-shadow-transform-active: translate(0.25rem, 0.25rem);
 
 
@@ -22,7 +22,7 @@
     height: var(--comp-button-height-md);
     font-family: var(--sys-typescale-font-family-body), sans-serif;
     font-size: var(--sys-typescale-body-md-size), sans-serif;
-    background: oklch(from var(--ds-sys-color-primary) l c h / 90%);
+    background: oklch(from var(--app-sys-color-primary) l c h / 90%);
     color: white;
     min-width: 8.75rem;
     padding: 0.5rem 1rem;
@@ -36,16 +36,16 @@
     outline-offset: 2px;
 
     &:focus {
-        outline-color: oklch(from var(--ds-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
+        outline-color: oklch(from var(--app-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
     }
 
     &:hover {
-        background: oklch(from var(--ds-sys-color-primary) l c h / 80%);
+        background: oklch(from var(--app-sys-color-primary) l c h / 80%);
         box-shadow: var(--comp-button-shadow-hover);
     }
 
     &:active {
-        background: oklch(from var(--ds-sys-color-primary) l c h / 80%);
+        background: oklch(from var(--app-sys-color-primary) l c h / 80%);
         box-shadow: var(--comp-button-shadow-active);
     }
 }
@@ -62,6 +62,6 @@
     border: none;
 
     &:hover {
-        background: oklch(from var(--ds-sys-color-primary) l c h / 10%);
+        background: oklch(from var(--app-sys-color-primary) l c h / 10%);
     }
 }

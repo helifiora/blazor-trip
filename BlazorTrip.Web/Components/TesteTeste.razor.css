@@ -1,7 +1,0 @@
-.person-item {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 1rem;
-    border: 1px solid black;
-    align-items: center;
-}

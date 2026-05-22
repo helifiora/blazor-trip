@@ -5,9 +5,10 @@ namespace BlazorTrip.Web.Components;
 
 public partial class AppReportCardPerson : ComponentBase
 {
-    [Parameter] [EditorRequired]
-    public ReportPayerDto Payer { get; set; }
-    
+    [Parameter] [EditorRequired] public ReportPayerDto Payer { get; set; }
+
+    [Parameter] public EventCallback<TransactionDto> OnDetailTransaction { get; set; }
+
     private string GetAmountClass(decimal amount)
     {
         return amount switch

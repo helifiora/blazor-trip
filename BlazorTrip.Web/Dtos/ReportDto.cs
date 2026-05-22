@@ -16,9 +16,8 @@ public record ReportPayerDto(
 );
 
 public record ReportShareDto(
-    Transaction Transaction,
+    TransactionDto Transaction,
     Person PersonToPay,
     Person PersonToReceive,
-    decimal SharedAmount,
-    Category Category
+    decimal SharedAmount
 );

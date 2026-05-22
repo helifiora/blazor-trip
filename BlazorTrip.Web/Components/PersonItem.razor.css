@@ -1,5 +1,5 @@
 .person-item {
-    color: var(--ds-sys-color-primary);
+    color: var(--app-sys-color-primary);
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 1rem;
@@ -9,7 +9,7 @@
 }
 
 .person-item__action-button {
-    color: var(--ds-sys-color-primary);
+    color: var(--app-sys-color-primary);
     background: transparent;
     border: none;
     font-size: 1rem;

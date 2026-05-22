@@ -1,9 +1,6 @@
 namespace BlazorTrip.Domain;
 
-public record Person(
-    Guid Id,
-    string Name
-)
+public record Person(Guid Id, string Name)
 {
     public static Person Create(string name)
     {

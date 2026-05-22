@@ -7,8 +7,7 @@
     <title>BlazorTrip.Web</title>
     <base href="./"/>
     <link rel="preload" id="webassembly"/>
-    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css"/>
-    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="design-system/design-system.css"/>
     <link rel="stylesheet" href="css/iconly.css"/>
     <link rel="icon" type="image/png" href="favicon.png"/>
     <link href="BlazorTrip.Web.styles.css" rel="stylesheet"/>
@@ -42,6 +41,20 @@
 
 <script>
     window.dialogHelper = {
+        addBackdropClick: (element) => {
+            element._ref = (event) => {
+                if (event.target === element) {
+                    element.close();
+                }
+            }
+            element.addEventListener('click', element._ref)
+        },
+        removeBackdropClick: (element) => {
+            if (element && element._ref) {
+                element.removeEventListener('click', element._ref);
+                delete element._ref;
+            }
+        },
         show: (element) => {
             if (element && !element.open) {
                 element.showModal();

@@ -1,0 +1,56 @@
+/* ==========================================================================
+   POPOVER COMPONENT (BEM & Bulma Conventions)
+   ========================================================================== */
+
+[popover] {
+    overflow: visible;
+}
+
+/* Base Popover Block (Block: .app-popover, maps to .c-component-popover) */
+.app-popover,
+.c-component-popover {
+    margin: 0;
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    left: unset;
+    bottom: 2rem;
+    border: none;
+    padding: 0;
+    transition: all 0.3s ease;
+    overflow-y: auto;
+    max-height: calc(100% - 4rem);
+    background: transparent;
+    opacity: 0;
+    transform: translateX(0.5rem);
+    
+    /* Backdrop overlay style */
+    &::backdrop {
+        transition: all 0.3s ease;
+        opacity: 0;
+    }
+    
+    /* Open State */
+    &:popover-open,
+    &.is-active {
+        opacity: 1;
+        transform: translateX(0);
+        
+        &::backdrop {
+            opacity: 1;
+        }
+    }
+    
+    /* Entry Starting Style */
+    @starting-style {
+        &:popover-open,
+        &.is-active {
+            opacity: 0;
+            transform: translateX(0.5rem);
+            
+            &::backdrop {
+                opacity: 0;
+            }
+        }
+    }
+}

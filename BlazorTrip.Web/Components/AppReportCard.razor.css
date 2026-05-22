@@ -12,5 +12,5 @@
 }
 
 .report-card-transaction:not(:last-child) {
-    border-bottom: 1px solid oklch(var(--ds-sys-color-primary) l c h / 20%);
+    border-bottom: 1px solid oklch(var(--app-sys-color-primary) l c h / 20%);
 }

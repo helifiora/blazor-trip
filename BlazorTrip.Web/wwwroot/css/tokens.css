@@ -1,9 +1,9 @@
 :root {
-    --ds-ref-color-royal: oklch(0.485 0.131 259.095);
+    --app-ref-color-royal: oklch(0.485 0.131 259.095);
     
-    --ds-sys-color-primary: oklch(0.255 0.021 91.585);
-    --ds-sys-color-negative: oklch(0.65 0.23 25);
-    --ds-sys-color-positive: oklch(0.70 0.22 145);
+    --app-sys-color-primary: oklch(0.255 0.021 91.585);
+    --app-sys-color-negative: oklch(0.65 0.23 25);
+    --app-sys-color-positive: oklch(0.70 0.22 145);
     
-    --ds-sys-color-background: oklch(0.975 0.022 91.585);
+    --app-sys-color-background: oklch(0.975 0.022 91.585);
 }
