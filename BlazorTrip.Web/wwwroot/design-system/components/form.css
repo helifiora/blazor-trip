@@ -190,7 +190,6 @@ input[type=checkbox],
 /* 8. Category Selector Popover & Button */
 .select-category-button,
 .app-category-selector {
-    anchor-name: --select-category-icon-button;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -200,17 +199,18 @@ input[type=checkbox],
     font-family: var(--app-sys-typescale-body-font), sans-serif;
     transition: all 0.3s ease;
     border: var(--app-sys-shape-border-width-medium) solid var(--app-sys-color-outline);
-    background-color: var(--app-sys-color-background);
     cursor: pointer;
+    outline: 1px solid transparent;
+    outline-offset: 2px;
+    background: transparent;
 
-    &:hover {
-        background-color: oklch(from var(--app-sys-color-primary) l c h / 10%);
+    &:focus {
+        outline-color: oklch(from var(--app-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
     }
 }
 
 .select-category-icon-grid,
 .app-category-grid {
-    position-anchor: --select-category-icon-button;
     display: none;
     grid-template-columns: repeat(auto-fit, 2.5rem);
     max-width: 20rem;

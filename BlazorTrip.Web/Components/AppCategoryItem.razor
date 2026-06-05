@@ -1,12 +1,30 @@
-<div class="app-card app-category-item">
+<div @ref="_editContainerRef"
+     class="app-card app-category-item @(_isEdit ? "-edit" : "")"
+     tabindex="-1"
+     @onfocusout="CloseEditOnFocusOut">
 
-    <i class="ph @Category.Logo" style="font-size: 2rem"></i>
+    @if (_isEdit)
+    {
+        <SelectCategoryIcon @ref="_iconRef" @bind-Value="_logo"/>
 
-    <span class="app-category-item__name">@Category.Name</span>
+        <input type="text"
+               @bind="_name"
+               @bind:event="oninput"
+               @onkeydown="KeyDown"
+               class="app-category-item__edit-input"/>
 
-    <div style="display: flex; gap: 0.25rem">
-        @if (HasActionButtons)
-        {
+        <button class="app-icon-button" @onclick="Save">
+            <i class="ph ph-floppy-disk"></i>
+        </button>
+    }
+    else
+    {
+        <i class="ph @Category.Logo" style="font-size: 2rem"></i>
+
+        <span class="app-category-item__name">@Category.Name</span>
+
+        <div style="display: flex; gap: 0.25rem">
+
             <button class="app-icon-button" @onclick="Edit">
                 <i class="ph ph-pen"></i>
             </button>
@@ -14,7 +32,8 @@
             <button class="app-icon-button" @onclick="Remove">
                 <i class="ph ph-x"></i>
             </button>
-        }
-    </div>
+            
+        </div>
+    }
 
 </div>

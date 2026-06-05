@@ -6,43 +6,45 @@ namespace BlazorTrip.Web.Repositories;
 
 public class DataPersonRepository(DataState data) : IPersonRepository
 {
-    public event Action? OnChange;
-
-    public IEnumerable<Person> People => data.People;
-
-    public Person? GetById(Guid id) => data.People.GetOrNull(id);
-
-    public Task Save(string name)
+    public Task<List<Person>> GetMany()
     {
-        data.People.Add(Person.Create(name));
-        NotifyChangedState();
+        return Task.FromResult(data.People.ToList());
+    }
+
+    public Task<Person?> GetById(Guid id)
+    {
+        return Task.FromResult(data.People.GetOrNull(id));
+    }
+
+    public Task Save(Person person)
+    {
+        if (data.People.GetOrNull(person.Id) is not null)
+        {
+            data.People.Update(person);
+            WeakReferenceMessenger.Default.Send(new PersonUpdatedMessage(person));
+        }
+        else
+        {
+            data.People.Add(person);
+            WeakReferenceMessenger.Default.Send(new PersonAddedMessage(person));
+        }
+
         return Task.CompletedTask;
     }
 
     public Task Delete(Guid id)
     {
         if (data.People.Remove(id))
-            NotifyChangedState();
-        return Task.CompletedTask;
-    }
+            WeakReferenceMessenger.Default.Send(new PersonDeletedMessage(id));
 
-    public Task Update(Person person)
-    {
-        data.People.Update(person);
-        NotifyChangedState();
         return Task.CompletedTask;
     }
 
     public Task Import(IEnumerable<Person> people)
     {
-        data.People.Set(people);
-        NotifyChangedState();
+        var peopleData = people.ToList();
+        data.People.Set(peopleData);
+        WeakReferenceMessenger.Default.Send(new PersonImportedMessage(peopleData));
         return Task.CompletedTask;
-    }
-
-    public void NotifyChangedState()
-    {
-        OnChange?.Invoke();
-        WeakReferenceMessenger.Default.Send(new PersonChangedMessage(People.ToList()));
     }
 }

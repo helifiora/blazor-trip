@@ -1,16 +1,11 @@
-using BlazorTrip.Web.Dtos;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Components;
 
-public partial class AppReportCardPerson : ComponentBase
+public partial class AppAmountDisplay : ComponentBase
 {
-    [Parameter] [EditorRequired] public ReportPayerDto Payer { get; set; }
+    [Parameter] [EditorRequired] public decimal Amount { get; set; }
 
-    [Parameter] public EventCallback<TransactionDto> OnDetailTransaction { get; set; }
-
-    private bool _isOpen = false;
-    
     private string GetAmountClass(decimal amount)
     {
         return amount switch
@@ -29,10 +24,5 @@ public partial class AppReportCardPerson : ComponentBase
             > 0 => "Receber",
             _ => "Nada a restituir"
         };
-    }
-
-    private void ToggleOpen()
-    {
-        _isOpen = !_isOpen;
     }
 }

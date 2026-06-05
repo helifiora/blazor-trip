@@ -1,9 +1,26 @@
-<div class="person-item app-card">
+<div  class="person-item app-card @(_isEdit ? "-edit" : "")">
     <i class="icon-user"></i>
-    
-    <span>@Person.Name</span>
 
-    <button class="app-icon-button" @onclick="Remove">
-        <i class="icon-x"></i>
-    </button>
+    @if (_isEdit)
+    {
+        <input type="text" @ref="_elementRef" @onkeydown="KeyDown"
+               class="person-item__edit-input" @onblur="CloseEdit"
+               @bind="_name" @bind:event="oninput"/>
+    }
+    else
+    {
+        <span>@Person.Name</span>
+
+
+        <div style="display: flex; gap: 0.5rem;">
+            <button class="app-icon-button" @onclick="Edit">
+                <i class="icon-edit"></i>
+            </button>
+
+            <button class="app-icon-button" @onclick="Remove">
+                <i class="icon-x"></i>
+            </button>
+        </div>
+    }
+
 </div>

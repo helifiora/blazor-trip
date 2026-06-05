@@ -71,10 +71,17 @@
             popover.showPopover();
         },
         close(popover) {
-            popover.hidePopover();
+            if (popover && popover.matches(':popover-open')) {
+                popover.hidePopover();
+            }
         },
         toggle(popover) {
             popover.togglePopover();
+        }
+    }
+    window.focusHelper = {
+        containsActiveElement(element) {
+            return !!element && element.contains(document.activeElement);
         }
     }
     window.downloadCsv = (fileName, content) => {

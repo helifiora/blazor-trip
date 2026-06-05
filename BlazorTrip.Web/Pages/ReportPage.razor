@@ -1,4 +1,5 @@
 @page "/reports"
+@using BlazorTrip.Domain
 
 <div class="app-page">
 
@@ -7,15 +8,23 @@
         SubTitle="Divisão de contas para cada membro da viagem"
         IconName="ph ph-table"/>
 
-    <div style="display: flex; flex-direction: column; gap: 1rem;">
-        @foreach (var report in _reports)
-        {
-            <AppReportCard
-                Report="report"
-                OnDetailTransaction="OpenPreview"
-                @key="report.Person.Id"/>
-        }
+    <div  style="margin-bottom: 2rem;">
+        <h2 class="app-title" style="margin: 0.5rem">Selecione a pessoa</h2>
+        <ul style="display: flex; flex-wrap: wrap; gap: 1rem">
+            <AppSelectButtons TItem="Person"
+                              Items="_people"
+                              SelectText="p => p.Name"
+                              Value="_selectedPerson"
+                              ValueChanged="OnPersonSelected"/>
+        </ul>
     </div>
+
+    @if (_report is not null)
+    {
+        <AppReportCard
+            Report="_report"
+            OnDetailTransaction="OpenPreview"/>
+    }
 </div>
 
 <AppModal @bind-Visible="_previewIsVisible">

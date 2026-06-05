@@ -1,7 +1,7 @@
 using BlazorTrip.Domain;
 using BlazorTrip.Web.Repositories;
 
-namespace BlazorTrip.Web.Commans;
+namespace BlazorTrip.Web.Commands;
 
 public class CreateTransactionCommand(
     IPersonRepository personRepo,

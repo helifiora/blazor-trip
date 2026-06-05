@@ -1,5 +1,5 @@
-<div class="app-card" style="display: flex; flex-direction: column; gap: 2rem">
-    <div style="grid-column: 1/3; display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; align-items: center">
+<div class="app-card" style="display: flex; flex-direction: column; padding: 0">
+    <div style="padding: 1.5rem; grid-column: 1/3; display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; align-items: center">
         <h2 class="app-title">@Report.Person.Name</h2>
 
         <div style="display: flex; flex-direction: column; gap: 0.5rem;">
@@ -23,24 +23,56 @@
 
     </div>
 
-    <AppReportCartSummary
-        Report="Report"
-        OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
-
     <div>
-        <h4 class="app-text -bold">Balanços</h4>
 
-        <ul style="display: flex; flex-direction: column; gap: 0.5rem;
-border-top: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);
-border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);">
-            @foreach (var personReport in Report.TransactionShares)
+        <div class="app-tabs" style="padding: 0 1.5rem">
+            <button class="app-tab  @(Tab == AppReportCardTab.Summary ? "is-active" : "")"
+                    @onclick="@(() => OnSelectTab(AppReportCardTab.Summary))">
+                Sumário
+            </button>
+            <button class="app-tab @(Tab == AppReportCardTab.Transactions ? "is-active" : "")"
+                    @onclick="@(() => OnSelectTab(AppReportCardTab.Transactions))">
+                Gastos
+            </button>
+            <button class="app-tab @(Tab == AppReportCardTab.Balance ? "is-active" : "") "
+                    @onclick="@(() => OnSelectTab(AppReportCardTab.Balance))">
+                Balanço
+            </button>
+        </div>
+
+        <div style="padding: 1.5rem;">
+            
+            @if (Tab == AppReportCardTab.Summary)
             {
-                <AppReportCardPerson
-                    @key="personReport.PersonToPay.Id"
-                    Payer="personReport"
+                <AppReportCartSummary
+                    Report="Report"
                     OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
             }
-        </ul>
+            else if (Tab == AppReportCardTab.Transactions)
+            {
+                <AppReportCardExpenses
+                    Report="Report"
+                    OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
+            }
+            else if (Tab == AppReportCardTab.Balance)
+            {
+                <div>
+                    
+                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;
+border-top: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);
+border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);">
+                        @foreach (var personReport in Report.TransactionShares)
+                        {
+                            <AppReportCardPerson
+                                @key="personReport.PersonToPay.Id"
+                                Payer="personReport"
+                                OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+
     </div>
 
 </div>

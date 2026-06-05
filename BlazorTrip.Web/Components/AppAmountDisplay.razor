@@ -1,0 +1,12 @@
+<div style=" 
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+">
+    <span class="app-text -sm @GetAmountClass(Amount)">
+        @decimal.Abs(Amount).ToString("C")
+    </span>
+    <span class="app-text -sm -italic @GetAmountClass(Amount)">
+        (@GetAmountStatus(Amount))
+    </span>
+</div>

@@ -1,33 +1,33 @@
 .c-person {
-    display: grid;
-    grid-template-columns: 15rem 1fr;
-    gap: 1rem;
-    padding: 0;
-    background: oklch(from var(--app-sys-color-primary) l c h / 2%);
-}
-
-.c-person:not(:first-child) {
-    border-top: 1px solid oklch(from var(--app-sys-color-primary) l c h / 12%);
-}
-
-.c-person:not(:last-child) {
-    border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 12%);
-}
-
-.c-person-header {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    gap: 0.5rem;
+    padding: 0;
+    background: oklch(from var(--app-sys-color-primary) 0.97 c h);
+    border: 1px solid var(--app-sys-color-outline);
+}
+
+
+.c-person-header {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: auto 1fr auto auto;
+
+    gap: 1.5rem;
     align-items: center;
-    padding: 1.5rem;
+    padding: 1rem 1.5rem;
+
+    &.-opened {
+        border-bottom: 1px solid var(--app-sys-color-outline);
+    }
 }
 
 
 .c-person-content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    background: oklch(from var(--app-sys-color-primary) 0.95 c h);
+
     /*border-left: 1px solid oklch(from var(--app-sys-color-primary) l c h / 12%);*/
 }
 
@@ -38,8 +38,8 @@
     gap: 0.5rem;
     padding: 0.5rem 1rem;
 
-    &:not(:last-child) {
-        border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 10%);
+    &:nth-child(odd) {
+        background: oklch(from var(--app-sys-color-primary) 0.92 c h);
     }
 }
 
@@ -47,4 +47,29 @@
     display: flex;
     align-items: center;
     gap: 0.25rem;
+}
+
+.-rotated {
+    transform: rotate(90deg);
+}
+
+.app-person-shares {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--app-sys-color-outline);
+}
+
+.app-person-shares__header {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.app-person-shares__footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
 }

@@ -1,17 +1,28 @@
-<div @ref="_popoverTarget" id="@_uniqueId" popover="auto" class="select-category-icon-grid">
-    @foreach (var (item, index) in AvailableIcons.Select((v, i) => (v, i)))
+<div @ref="_popoverTarget"
+     style="position-anchor: @_uniqueId"
+     id="@_uniqueId"
+     popover="auto"
+     class="select-category-icon-grid"
+     @onfocusout="CloseOnFocusOut">
+    @foreach (var item in AvailableIcons)
     {
         <label class="select-category-icon">
             <input type="radio" name="@GroupName"
                    checked="@(Value == item)"
-                   @onchange="@(() => OnIconSelected(item))"
+                   @onclick="CloseAsync"
                    autofocus="@(Value == item)"/>
             <i class="ph @item"></i>
         </label>
     }
 </div>
 
-<button popovertarget="@_uniqueId" type="button" class="select-category-button">
+<button @ref="_buttonRef"
+        popovertarget="@_uniqueId"
+        style="anchor-name: @_uniqueId"
+        type="button"
+        class="select-category-button"
+        @onkeydown="KeyDown"
+        @onfocusout="CloseOnFocusOut">
     @if (!string.IsNullOrEmpty(Value))
     {
         <i class="ph @Value"></i>

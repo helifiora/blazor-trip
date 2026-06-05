@@ -41,9 +41,9 @@ public class CsvService(
         var data = transactionRepository
             .Transactions
             .AsEnumerable()
-            .Select(s =>
+            .Select(async s =>
             {
-                var payerName = GetPersonNameById(s.PayerId);
+                var payerName = await GetPersonNameById(s.PayerId);
                 var sharedPersonName = string.Join(",", s.SharedIds.Select(GetPersonNameById));
                 var category = state.Categories.Get(s.CategoryId);
                 return new TransactionCsv
@@ -65,9 +65,10 @@ public class CsvService(
         return stream.ToArray();
     }
 
-    private string GetPersonNameById(Guid personId)
+    private async Task<string> GetPersonNameById(Guid personId)
     {
-        return personRepository.GetById(personId)!.Name.Trim();
+        var person = await personRepository.GetById(personId);
+        return person!.Name.Trim();
     }
 
     private static CsvConfiguration GetConfig() => new(new CultureInfo("pt-BR"))

@@ -2,7 +2,7 @@ using System.Globalization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using BlazorTrip.Web;
-using BlazorTrip.Web.Commans;
+using BlazorTrip.Web.Commands;
 using BlazorTrip.Web.Data;
 using BlazorTrip.Web.Facade;
 using BlazorTrip.Web.Repositories;
@@ -28,7 +28,7 @@ builder.Services.AddScoped<IPersonRepository, DataPersonRepository>();
 builder.Services.AddScoped<ITransactionRepository, DataTransactionRepository>();
 
 
-builder.Services.AddTransient<ReportFacade>();
+builder.Services.AddTransient<CreateReportAction>();
 builder.Services.AddTransient<CreateTransactionCommand>();
 
 await builder.Build().RunAsync();

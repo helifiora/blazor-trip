@@ -10,20 +10,20 @@
     background-color: var(--app-sys-color-background);
     border-radius: var(--app-sys-shape-corner-none);
     transition: all 0.3s ease;
-    
+
     .app-card__header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1rem;
     }
-    
+
     .app-card__body {
         display: flex;
         flex-direction: column;
         gap: 1rem;
     }
-    
+
     .app-card__footer {
         margin-top: 1rem;
         display: flex;
@@ -98,7 +98,29 @@
     padding: 0.5rem 1rem;
     height: 3.5rem;
     align-items: center;
-    
+    outline: none;
+    transition: 0.3s ease;
+
+    &.-edit {
+        color: oklch(from var(--app-ref-color-royal) 0.23 c h);
+        transform: translateY(-0.125rem);
+        background: oklch(from var(--app-ref-color-royal) 0.96 c h);
+        box-shadow: 2px 2px 0 0 var(--app-ref-color-royal);
+        border-color: var(--app-ref-color-royal);
+        
+        i {
+            color: var(--app-ref-color-royal);
+        }
+    }
+
+    .person-item__edit-input {
+        color: oklch(from var(--app-sys-color-primary) 0.23 c h);
+        padding: 0;
+        border: none;
+        background: transparent;
+        outline: none;
+    }
+
     .person-item__action-button {
         color: var(--app-sys-color-primary);
         background: transparent;
@@ -112,7 +134,7 @@
         align-items: center;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        
+
         &:hover {
             background-color: oklch(from var(--app-sys-color-primary) l c h / 10%);
         }
@@ -121,6 +143,7 @@
 
 /* 3. List Item Component - Category (Block: .app-category-item) */
 .app-category-item {
+    height: 5rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -129,18 +152,40 @@
     background-color: var(--app-sys-color-background);
     border: var(--app-sys-shape-border-width-thin) solid var(--app-sys-color-outline);
     box-shadow: var(--app-comp-card-shadow);
+
+    &.-edit {
+        color: oklch(from var(--app-ref-color-royal) 0.23 c h);
+        transform: translateY(-0.125rem);
+        background: oklch(from var(--app-ref-color-royal) 0.96 c h);
+        box-shadow: 2px 2px 0 0 var(--app-ref-color-royal);
+        border-color: var(--app-ref-color-royal);
+
+        i {
+            color: var(--app-ref-color-royal);
+        }
+    }
+
+    .app-category-item__edit-input {
+        height: 2.5rem;
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 15%); 
+        color: oklch(from var(--app-sys-color-primary) 0.23 c h);
+        padding: 4px 8px;
+        outline: none;
+    }
     
     .app-category-item__name {
         display: block;
         font-size: 1rem;
         font-weight: var(--app-sys-typescale-weight-bold);
     }
-    
+
     .app-category-item__action-button-container {
         display: flex;
         gap: 0.5rem;
     }
-    
+
     .app-category-item__action-button {
         color: var(--app-sys-color-primary);
         background: transparent;
@@ -154,7 +199,7 @@
         align-items: center;
         cursor: pointer;
         transition: background-color 0.3s ease;
-        
+
         &:hover {
             background-color: oklch(from var(--app-sys-color-primary) l c h / 10%);
         }
@@ -177,7 +222,7 @@
     &:not(:last-child) {
         border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 12%);
     }
-    
+
     .app-report-member__header {
         display: flex;
         flex-direction: column;
@@ -185,18 +230,18 @@
         gap: 0.5rem;
         align-items: center;
         padding: 1.5rem;
-        
+
         &.is-opened, &.-opened {
             /* optional custom styling if open */
         }
     }
-    
+
     .app-report-member__content {
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
-    
+
     .app-report-member__transaction {
         align-items: center;
         display: grid;
@@ -221,7 +266,7 @@
 .app-report-expense {
     .app-report-expense__item {
         padding: 0.5rem 1rem;
-        
+
         &:nth-child(odd) {
             background-color: oklch(from var(--app-sys-color-primary) l c h / 6%);
         }
@@ -232,6 +277,7 @@
     }
 
     /* maps to .c-report-category-summary */
+
     .app-report-expense__category-summary {
         display: grid;
         grid-template-columns: auto 1fr;
@@ -254,7 +300,7 @@
     gap: 1rem;
     align-items: center;
     padding: 0.5rem 0;
-    
+
     &:not(:last-child) {
         border-bottom: 1px solid oklch(from var(--app-sys-color-outline) l c h / 20%);
     }

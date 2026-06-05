@@ -1,0 +1,19 @@
+@typeparam TItem
+
+<ul class="app-select-buttons">
+    @foreach (var item in Items)
+    {
+        <li class="app-select-buttons__item">
+            <label>
+                <input
+                    @onchange="@(() => OnValueChanged(item))"
+                    type="radio"
+                    checked="@IsChecked(item)"
+                    name="@_uniqueId"/>
+                <span>
+                    @SelectText(item)
+                </span>
+            </label>
+        </li>
+    }
+</ul>

@@ -25,10 +25,11 @@
 
     <div style="display: flex; gap: 0.5rem; flex-direction: column">
 
-        @foreach (var item in personRepo.People)
+        @foreach (var item in _people)
         {
             <PersonItem Person="item"
                         @key="item.Id"
+                        OnPersonChanged="Update"
                         OnRemoved="Remove"/>
         }
 

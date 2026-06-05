@@ -9,8 +9,8 @@
 
     <div @ref="_popoverNew" class="c-component-popover" popover="manual" id="new-transaction-form">
         <NewTransactionCard
-            Categories="categoryRepository.Categories"
-            People="personRepository.People"
+            Categories="_categories"
+            People="_people"
             OnSubmit="Submit"
             OnClose="ClosePopover"/>
     </div>
@@ -35,11 +35,12 @@
     <AppModal @bind-Visible="_isUpdateVisible">
         @if (_selected is not null)
         {
-            <UpdateTransactionCard Categories="categoryRepository.Categories"
-                                   People="personRepository.People"
-                                   OnSubmit="Update"
-                                   OnClose="@(() => _isUpdateVisible = false)"
-                                   Transaction="_selected"/>
+            <UpdateTransactionCard
+                Categories="_categories"
+                People="_people"
+                OnSubmit="Update"
+                OnClose="@(() => _isUpdateVisible = false)"
+                Transaction="_selected"/>
         }
     </AppModal>
 </div>

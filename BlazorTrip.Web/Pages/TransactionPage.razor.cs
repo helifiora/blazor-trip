@@ -1,6 +1,7 @@
 using BlazorTrip.Domain;
 using BlazorTrip.Web.Dtos;
 using BlazorTrip.Web.Repositories;
+using CommunityToolkit.Mvvm.Messaging;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -11,7 +12,7 @@ public partial class TransactionPage(
     ICategoryRepository categoryRepository,
     ITransactionRepository transactionRepository,
     IJSRuntime jsRuntime
-) : ComponentBase, IDisposable
+) : ComponentBase, IDisposable, IRecipient<PersonImportedMessage>, IRecipient<CategoryImportedMessage>
 {
     private TransactionDto? _selected;
 
@@ -21,14 +22,17 @@ public partial class TransactionPage(
 
     private IJSObjectReference? _jsModule;
 
+    private List<Person> _people = [];
+
+    private List<Category> _categories = [];
 
     private void UpdateUi() => InvokeAsync(StateHasChanged);
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         transactionRepository.OnChange += UpdateUi;
-        categoryRepository.OnChange += UpdateUi;
-        categoryRepository.OnChange += UpdateUi;
+        _people = await personRepository.GetMany();
+        _categories = await categoryRepository.GetMany();
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
@@ -42,8 +46,6 @@ public partial class TransactionPage(
     public void Dispose()
     {
         transactionRepository.OnChange -= UpdateUi;
-        categoryRepository.OnChange -= UpdateUi;
-        categoryRepository.OnChange -= UpdateUi;
     }
 
     public async Task Submit(Transaction transaction)
@@ -74,5 +76,17 @@ public partial class TransactionPage(
         {
             await _jsModule.InvokeVoidAsync("togglePopover", _popoverNew);
         }
+    }
+
+    public void Receive(PersonImportedMessage message)
+    {
+        _people = message.Value;
+        UpdateUi();
+    }
+
+    public void Receive(CategoryImportedMessage message)
+    {
+        _categories = message.Value;
+        UpdateUi();
     }
 }

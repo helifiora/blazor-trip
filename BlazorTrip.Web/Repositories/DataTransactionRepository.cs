@@ -5,8 +5,7 @@ using CommunityToolkit.Mvvm.Messaging;
 
 namespace BlazorTrip.Web.Repositories;
 
-public class DataTransactionRepository : ITransactionRepository, IRecipient<CategoryChangedMessage>,
-    IRecipient<PersonChangedMessage>
+public class DataTransactionRepository : ITransactionRepository
 {
     private DataState _data;
 
@@ -61,11 +60,7 @@ public class DataTransactionRepository : ITransactionRepository, IRecipient<Cate
         OnChange?.Invoke();
         UpdateTransformDtoCache();
     }
-
-    public void Receive(CategoryChangedMessage message) => NotifyStateChanged();
-
-    public void Receive(PersonChangedMessage message) => NotifyStateChanged();
-
+    
     private void UpdateTransformDtoCache()
     {
         _cache = _data.Transactions

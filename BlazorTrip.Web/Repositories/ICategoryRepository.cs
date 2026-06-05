@@ -5,15 +5,17 @@ namespace BlazorTrip.Web.Repositories;
 
 public interface ICategoryRepository
 {
-    event Action? OnChange;
-    IEnumerable<Category> Categories { get; }
-    Category? GetById(Guid id);
-    Task Save(string name, string logo);
-    Task Update(Category category);
+    Task<List<Category>> GetMany();
+    Task<Category?> GetById(Guid id);
+    Task Save(Category category);
     Task Delete(Guid id);
     Task Import(IEnumerable<Category> categories);
-    void NotifyChangedState();
 }
+    
+public class CategoryImportedMessage(List<Category> people) : ValueChangedMessage<List<Category>>(people);
 
-public class CategoryChangedMessage(List<Category> categories) : 
-    ValueChangedMessage<List<Category>>(categories);
+public class CategoryAddedMessage(Category person) : ValueChangedMessage<Category>(person);
+
+public class CategoryUpdatedMessage(Category person) : ValueChangedMessage<Category>(person);
+
+public class CategoryDeletedMessage(Guid id) : ValueChangedMessage<Guid>(id);

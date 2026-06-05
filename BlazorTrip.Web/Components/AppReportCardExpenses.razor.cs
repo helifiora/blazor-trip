@@ -4,9 +4,13 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Components;
 
+public record PersonTransactionCategory(
+    Category Category,
+    decimal CategoryAmount,
+    int Count
+);
 
-
-public partial class AppReportCartSummary : ComponentBase
+public partial class AppReportCardExpenses : ComponentBase
 {
     [Parameter] [EditorRequired] public ReportDto Report { get; set; }
 
@@ -18,15 +22,5 @@ public partial class AppReportCartSummary : ComponentBase
         .Where(s => s.Transaction.Payer.Id == Report.Person.Id)
         .DistinctBy(s => s.Transaction.Id)
         .OrderByDescending(s => s.Transaction.Amount)
-        .ToList();
-
-    private List<PersonTransactionCategory> PersonCategories => PersonTransactions
-        .GroupBy(s => s.Transaction.Category)
-        .Select(s =>
-        {
-            var categoryAmount = s.Select(q => q.Transaction.Amount).Sum();
-            return new PersonTransactionCategory(s.Key, categoryAmount, s.Count());
-        })
-        .OrderByDescending(s => s.CategoryAmount)
         .ToList();
 }

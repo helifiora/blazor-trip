@@ -1,46 +1,28 @@
 <div>
 
 
-    <h4 class="app-text  -bold" style="margin-bottom: 0.25rem">Gastos</h4>
 
     <div style="
     display: grid;
-    grid-template-columns: 7fr 5fr;
-    border-top: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);
-    gap: 1rem; border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);">
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: 0.25rem;">
 
-        <ul style=" display: flex; flex-direction: column; gap: 0.125rem; ">
-            @foreach (var item in PersonTransactions)
-            {
-                <li class="c-report-expense-item app-text -sm"
-                    style="display: grid; grid-template-columns: 1rem 1fr 8rem; gap: 1rem; align-items: center">
-                    <i class="ph @item.Transaction.Category.Logo"></i>
-                    <span
-                        @onclick="@(() => OnDetailTransaction.InvokeAsync(item.Transaction))">@item.Transaction.Name</span>
-                    <span>@item.Transaction.Amount.ToString("C")</span>
-                </li>
-            }
-        </ul>
+        @foreach (var item in PersonCategories)
+        {
+            <li class="c-report-category-summary" @key="item.Category.Id">
+                <i class="ph @item.Category.Logo app-text -lg -bold"></i>
+                <div class=" c-report-category-summary__content">
+                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem">
+                        <span class="app-text -sm -bold">@item.Category.Name</span>
+                        <span class="app-text -sm">@item.CategoryAmount.ToString("C")</span>
 
-
-        <div
-            style=" display: flex; flex-direction: column; align-self: center; padding: 1rem 0">
-            @foreach (var item in PersonCategories)
-            {
-                <li class="c-report-category-summary" @key="item.Category.Id">
-                    <i class="ph @item.Category.Logo app-text -lg -bold"></i>
-                    <div class=" c-report-category-summary__content">
-                        <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem">
-                            <span class="app-text -sm -bold">@item.Category.Name</span>
-                            <span class="app-text -sm">@item.CategoryAmount.ToString("C")</span>
-
-                        </div>
-                        <AppPercentageBar Value="item.CategoryAmount"
-                                          Max="Report.TotalSpent"/>
                     </div>
-                </li>
-            }
-        </div>
+                    <AppPercentageBar Value="item.CategoryAmount"
+                                      Max="Report.TotalSpent"/>
+                </div>
+            </li>
+        }
+
 
     </div>
 </div>

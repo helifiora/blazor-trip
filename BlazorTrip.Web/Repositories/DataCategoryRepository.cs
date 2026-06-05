@@ -6,38 +6,32 @@ namespace BlazorTrip.Web.Repositories;
 
 public class DataCategoryRepository(DataState data) : ICategoryRepository
 {
-    public event Action? OnChange;
-
-    public IEnumerable<Category> Categories => data.Categories;
-
-    public Category? GetById(Guid id) => data.Categories.GetOrNull(id);
-
-    public Task Save(string name, string logo)
+    public Task<List<Category>> GetMany()
     {
-        try
-        {
-            var category = Category.Create(name, logo);
-            data.Categories.Add(category);
-            NotifyChangedState();
-            return Task.CompletedTask;
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-            return Task.CompletedTask;
-        }
+        return Task.FromResult(data.Categories.ToList());
     }
 
-    public Task Update(Category category)
+    public Task<Category?> GetById(Guid id)
+    {
+        return Task.FromResult(data.Categories.GetOrNull(id));
+    }
+
+    public Task Save(Category category)
     {
         try
         {
             var currentValue = data.Categories.GetOrNull(category.Id);
             if (currentValue is null)
-                return Task.CompletedTask;
+            {
+                data.Categories.Add(category);
+                WeakReferenceMessenger.Default.Send(new CategoryAddedMessage(category));
+            }
+            else
+            {
+                data.Categories.Update(category);
+                WeakReferenceMessenger.Default.Send(new CategoryUpdatedMessage(category));
+            }
 
-            data.Categories.Update(category);
-            NotifyChangedState();
             return Task.CompletedTask;
         }
         catch (Exception exception)
@@ -52,7 +46,9 @@ public class DataCategoryRepository(DataState data) : ICategoryRepository
         try
         {
             if (data.Categories.Remove(id))
-                NotifyChangedState();
+            {
+                WeakReferenceMessenger.Default.Send(new CategoryDeletedMessage(id));
+            }
             return Task.CompletedTask;
         }
         catch (Exception e)
@@ -64,14 +60,9 @@ public class DataCategoryRepository(DataState data) : ICategoryRepository
 
     public Task Import(IEnumerable<Category> categories)
     {
-        data.Categories.Set(categories);
-        NotifyChangedState();
+        var categoryData = categories.ToList();
+        data.Categories.Set(categoryData);
+        WeakReferenceMessenger.Default.Send(new CategoryImportedMessage(categoryData));
         return Task.CompletedTask;
-    }
-
-    public void NotifyChangedState()
-    {
-        OnChange?.Invoke();
-        WeakReferenceMessenger.Default.Send(new CategoryChangedMessage(Categories.ToList()));
     }
 }

@@ -1,0 +1,25 @@
+<div style="padding-top: 1rem">
+
+    <table class="app-table is-striped">
+        <thead>
+        <tr>
+            <th style="width: 24px"></th>
+            <th>Nome</th>
+            <th style="width: 160px">Valor Total</th>
+            <th style="width: 240px">Valor Dividido</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in PersonTransactions)
+        {
+            <tr>
+                <td><i class="ph @item.Transaction.Category.Logo"></i></td>
+                <td @onclick="@(() => OnDetailTransaction.InvokeAsync(item.Transaction))">@item.Transaction.Name</td>
+                <td>@item.Transaction.Amount.ToString("C")</td>
+                <td>@item.SharedAmount.ToString("C") / pessoa</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    
+</div>

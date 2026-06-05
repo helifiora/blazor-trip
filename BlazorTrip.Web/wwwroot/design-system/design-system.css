@@ -22,3 +22,99 @@
 [popover] {
     overflow: visible;
 }
+
+._fade-in {
+    transition: .3s ease;
+    
+    @starting-style {
+        opacity: 0;
+    }
+}
+
+.app-tabs {
+    display: flex;
+    gap: 0.125rem;
+    border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 70%);
+}
+
+.app-tab {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 8.75rem;
+    height: var(--app-comp-button-height-md);
+    padding: 0.5rem 1rem;
+    border: none;
+
+    font-family: var(--app-sys-typescale-body-font), sans-serif;
+    font-size: var(--app-sys-typescale-body-medium-size);
+    font-weight: var(--app-sys-typescale-weight-medium);
+
+    background-color: transparent;
+    color: var(--app-sys-color-primary);
+
+    transition: all 0.3s ease;
+    cursor: pointer;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+
+    /* Focus State */
+    &:focus, &.is-focused {
+        outline-color: oklch(from var(--app-sys-color-primary) calc(l + 0.25) 0.2 h / 70%);
+    }
+
+    /* Hover State */
+    &:hover, &.is-hovered {
+        background-color: oklch(from var(--app-sys-color-primary) l c h / 14%);
+    }
+
+    /* Active State */
+    &:active, &.is-active {
+        background-color: var(--app-sys-color-primary);
+        color: var(--app-sys-color-on-primary);
+    }
+
+    /* Disabled State */
+    &[disabled], &.is-disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+        box-shadow: none;
+        transform: none;
+    }
+}
+
+.app-select-buttons {
+    display: flex;
+    gap: 0.125rem;
+    flex: 1;
+    padding: 0.125rem;
+    background: oklch(from var(--app-sys-color-primary) 0.97 c h);
+    border: var(--app-sys-shape-border-width-medium) solid var(--app-sys-color-primary);
+    box-shadow: 1px 1px 0 0 var(--app-sys-color-primary)
+}
+
+.app-select-buttons__item {
+    transition: 0.3s ease;
+    padding: 0.5rem 0.75rem;
+    
+    input {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+    }
+    
+    &:hover {
+        background: oklch(from var(--app-sys-color-primary) l c h / 14%);
+    }
+    
+    &:has(input:checked) {
+        background: var(--app-sys-color-primary);
+        color: var(--app-sys-color-on-primary);
+    }
+}

@@ -4,15 +4,20 @@ using BlazorTrip.Web.Repositories;
 
 namespace BlazorTrip.Web.Facade;
 
-public class ReportFacade(
+public class CreateReportAction(
     IPersonRepository personRepository,
     ITransactionRepository transactionRepository,
     ICategoryRepository categoryRepository
 )
 {
-    public ReportDto GenerateReportFrom(Guid personId)
+    public async Task<ReportDto> Handle(Guid personId)
     {
-        var person = personRepository.GetById(personId)!;
+        var people = await personRepository.GetMany();
+        var categories = await categoryRepository.GetMany();
+        var peopleDict = people.ToDictionary(x => x.Id);
+        var categoriesDict = categories.ToDictionary(x => x.Id);
+
+        var person = peopleDict[personId];
 
         var sharesRelatedToMe = transactionRepository.Transactions
             .SelectMany(s => s.CreateTransactionShares())
@@ -23,15 +28,14 @@ public class ReportFacade(
             .ToList();
 
         var reportShare = sharesRelatedToMe.Select(s => new ReportShareDto(
-            ToTransactionDto(s.Transaction),
-            personRepository.GetById(s.ToPayId)!,
-            personRepository.GetById(s.ToReceiveId)!,
+            ToTransactionDto(s.Transaction, peopleDict, categoriesDict),
+            peopleDict[s.ToPayId],
+            peopleDict[s.ToReceiveId],
             s.ToReceiveId == personId ? s.ShareAmount : -s.ShareAmount
         )).ToList();
 
         var balance = reportShare.Select(s => s.SharedAmount).Sum();
-        var payers = personRepository.People
-            .Where(s => s.Id != personId)
+        var payers = people.Where(s => s.Id != personId)
             .Select(s =>
             {
                 var shares = reportShare
@@ -58,15 +62,16 @@ public class ReportFacade(
             .Sum();
     }
 
-    private TransactionDto ToTransactionDto(Transaction transaction)
+    private TransactionDto ToTransactionDto(Transaction transaction, Dictionary<Guid, Person> people,
+        Dictionary<Guid, Category> categories)
     {
         return new TransactionDto(
             transaction.Id,
             transaction.Name,
             transaction.Amount,
-            categoryRepository.GetById(transaction.CategoryId)!,
-            personRepository.GetById(transaction.PayerId)!,
-            transaction.SharedIds.Select(s => personRepository.GetById(s)!)
+            categories[transaction.CategoryId],
+            people[transaction.PayerId],
+            transaction.SharedIds.Select(id => people[id])
         );
     }
 }

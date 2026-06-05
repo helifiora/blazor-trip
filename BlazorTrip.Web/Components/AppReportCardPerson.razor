@@ -1,5 +1,6 @@
 <div class="c-person">
-    <div class="c-person-header @(Payer.Shares.Any() ? "-opened" : "")">
+    <div class="c-person-header @(_isOpen ? "-opened" : "")">
+        <i class="ph ph-user"></i>
         <p class="app-text -medium">@Payer.PersonToPay.Name</p>
         <div class="c-amount-container">
             <span class="app-text -bold @GetAmountClass(Payer.ValueToPay)">
@@ -13,30 +14,85 @@
                 (@GetAmountStatus(Payer.ValueToPay))
             </span>
         </div>
+        <button class="app-icon-button" @onclick="ToggleOpen">
+            <i style="transition: 0.3s ease" class="ph ph-caret-right @(_isOpen ? "-rotated" : "")"></i>
+        </button>
     </div>
-    @if (Payer.Shares.Any())
+    @if (_isOpen && Payer.Shares.Any())
     {
-        <ul class="c-person-content">
-            @foreach (var share in Payer.Shares)
+        <div class="c-person-content">
+
+            @if (Payer.SharesToPay.Count > 0)
             {
-                <li class="c-person-transaction">
-                    <i class="ph @share.Transaction.Category.Logo"></i>
-
-                    <span class="app-text -sm" @onclick="@(() => OnDetailTransaction.InvokeAsync(share.Transaction))">
-                        @share.Transaction.Name
-                    </span>
-
-                    <div class="c-amount-container">
-                        <span class="app-text -sm @GetAmountClass(share.SharedAmount)">
-                            @decimal.Abs(share.SharedAmount).ToString("C")
-                        </span>
-                        <span class="app-text -sm -italic @GetAmountClass(share.SharedAmount)">
-                            (@GetAmountStatus(share.SharedAmount))
-                        </span>
+                <article class="app-person-shares" style="margin-bottom: 0.5rem">
+                    <div class="app-person-shares__header">
+                        <h4 class="app-text -bold -sm">Receber</h4>
                     </div>
+                    <ul>
+                        @foreach (var share in Payer.SharesToPay)
+                        {
+                            <li class="c-person-transaction">
+                                <i class="ph @share.Transaction.Category.Logo"></i>
 
-                </li>
+                                <span class="app-text -sm"
+                                      @onclick="@(() => OnDetailTransaction.InvokeAsync(share.Transaction))">
+                                    @share.Transaction.Name
+                                </span>
+
+                                <div class="c-amount-container">
+                                    <span class="app-text -sm @GetAmountClass(share.SharedAmount)">
+                                        @decimal.Abs(share.SharedAmount).ToString("C")
+                                    </span>
+                                    <span class="app-text -sm -italic @GetAmountClass(share.SharedAmount)">
+                                        (@GetAmountStatus(share.SharedAmount))
+                                    </span>
+                                </div>
+
+                            </li>
+                        }
+                        <li class="app-person-shares__footer">
+                            <span class="app-text -positive -bold -sm">Total:</span>
+                            <AppAmountDisplay Amount="Payer.SharesToPayTotal"/>
+                        </li>
+                    </ul>
+                </article>
             }
-        </ul>
+            @if (Payer.SharesToReceive.Count > 0)
+            {
+                <article class="app-person-shares">
+                    <div class="app-person-shares__header">
+                        <h4 class="app-text -sm -bold">Pagar</h4>
+                    </div>
+                    <ul>
+                        @foreach (var share in Payer.SharesToReceive)
+                        {
+                            <li class="c-person-transaction">
+                                <i class="ph @share.Transaction.Category.Logo"></i>
+
+                                <span class="app-text -sm"
+                                      @onclick="@(() => OnDetailTransaction.InvokeAsync(share.Transaction))">
+                                    @share.Transaction.Name
+                                </span>
+
+                                <div class="c-amount-container">
+                                    <span class="app-text -sm @GetAmountClass(share.SharedAmount)">
+                                        @decimal.Abs(share.SharedAmount).ToString("C")
+                                    </span>
+                                    <span class="app-text -sm -italic @GetAmountClass(share.SharedAmount)">
+                                        (@GetAmountStatus(share.SharedAmount))
+                                    </span>
+                                </div>
+
+                            </li>
+                        }
+
+                        <li class="app-person-shares__footer">
+                            <span class="app-text -bold -negative -sm">Total:</span>
+                            <AppAmountDisplay Amount="Payer.SharesToReceiveTotal"/>
+                        </li>
+                    </ul>
+                </article>
+            }
+        </div>
     }
 </div>
