@@ -1,5 +1,6 @@
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
 using Microsoft.AspNetCore.Components;
+using TransactionDto = BlazorTrip.Application.Dto.TransactionDto;
 
 namespace BlazorTrip.Web.Components;
 

@@ -1,6 +1,6 @@
-namespace BlazorTrip.Domain;
+namespace BlazorTrip.Domain.Models;
 
-public record Person(Guid Id, string Name)
+public record Person(Guid Id, string Name) : IEntity
 {
     public static Person Create(string name)
     {

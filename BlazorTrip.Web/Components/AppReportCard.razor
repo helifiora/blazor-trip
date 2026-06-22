@@ -1,78 +1,53 @@
-<div class="app-card" style="display: flex; flex-direction: column; padding: 0">
-    <div style="padding: 1.5rem; grid-column: 1/3; display: grid; grid-template-columns: 1fr auto auto; gap: 2rem; align-items: center">
-        <h2 class="app-title">@Report.Person.Name</h2>
+<h3 class="app-title -sm mb-2">
+    Relatório de @Report.Person.Name
+</h3>
 
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <span class="app-text -bold">Gasto Total</span>
-            <span class="app-text -bold -lg">@Report.TotalSpent.ToString("C")</span>
-        </div>
+<div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;" class="mb-5">
 
-        <div style="display: flex; flex-direction: column; gap: 0.5rem;">
-            <span class="app-text -bold">Balanço Total</span>
-            <div style="display: flex; align-items: center; gap: 0.25rem;">
-                <span
-                    class="app-text -bold -lg @GetAmountClass(Report.Balance)">
-                    @decimal.Abs(Report.Balance).ToString("C")
-                </span>
-                <span class="app-text -sm  @GetAmountClass(Report.Balance)"
-                      style="font-style: italic; line-height: var(--sys-typescale-body-lg-line-height)">
-                    (@GetAmountStatus(Report.Balance))
-                </span>
-            </div>
-        </div>
-
+    <div class="app-card">
+        <h4 class="app-title -sm mb-2">Gasto Total</h4>
+        <p class="app-text -bold -lg">@Report.TotalSpent.ToString("C")</p>
     </div>
 
-    <div>
-
-        <div class="app-tabs" style="padding: 0 1.5rem">
-            <button class="app-tab  @(Tab == AppReportCardTab.Summary ? "is-active" : "")"
-                    @onclick="@(() => OnSelectTab(AppReportCardTab.Summary))">
-                Sumário
-            </button>
-            <button class="app-tab @(Tab == AppReportCardTab.Transactions ? "is-active" : "")"
-                    @onclick="@(() => OnSelectTab(AppReportCardTab.Transactions))">
-                Gastos
-            </button>
-            <button class="app-tab @(Tab == AppReportCardTab.Balance ? "is-active" : "") "
-                    @onclick="@(() => OnSelectTab(AppReportCardTab.Balance))">
-                Balanço
-            </button>
+    <div class="app-card">
+        <h4 class="app-title -sm mb-2">Balanço Total</h4>
+        <div style="display: flex; gap: 0.25rem; align-items: center">
+            <p class="app-text -bold -lg @GetAmountClass(Report.Balance)">
+                @decimal.Abs(Report.Balance).ToString("C")
+            </p>
+            <span class="app-text -sm -italic @GetAmountClass(Report.Balance)">
+                (@GetAmountStatus(Report.Balance))
+            </span>
         </div>
+    </div>
 
-        <div style="padding: 1.5rem;">
-            
-            @if (Tab == AppReportCardTab.Summary)
-            {
-                <AppReportCartSummary
-                    Report="Report"
-                    OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
-            }
-            else if (Tab == AppReportCardTab.Transactions)
-            {
-                <AppReportCardExpenses
-                    Report="Report"
-                    OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
-            }
-            else if (Tab == AppReportCardTab.Balance)
-            {
-                <div>
-                    
-                    <ul style="display: flex; flex-direction: column; gap: 0.5rem;
+    <div class="app-card">
+        <h4 class="app-title -sm mb-2">Total de Lançamentos</h4>
+        <p class="app-text -bold -lg">
+            @Report.Transactions.Count
+        </p>
+    </div>
+</div>
+
+
+@if (Report.Transactions.Count > 0)
+{
+    <AppReportCardExpenses
+        Report="Report"
+        OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>   
+}
+
+
+<h4 class="app-title -sm mb-2">Balanços de @Report.Person.Name</h4>
+
+<ul style="display: flex; flex-direction: column; gap: 0.5rem;
 border-top: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);
 border-bottom: 1px solid oklch(from var(--app-sys-color-primary) l c h / 20%);">
-                        @foreach (var personReport in Report.TransactionShares)
-                        {
-                            <AppReportCardPerson
-                                @key="personReport.PersonToPay.Id"
-                                Payer="personReport"
-                                OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
-                        }
-                    </ul>
-                </div>
-            }
-        </div>
-
-    </div>
-
-</div>
+    @foreach (var personReport in Report.ReportPayers)
+    {
+        <AppReportCardPerson
+            @key="personReport.PersonToPay.Id"
+            Payer="personReport"
+            OnDetailTransaction="@((a) => OnDetailTransaction.InvokeAsync(a))"/>
+    }
+</ul>

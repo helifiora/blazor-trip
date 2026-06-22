@@ -1,4 +1,11 @@
 @page "/transactions"
+@using BlazorTrip.Application.Dto
+@using BlazorTrip.Application.ViewModels
+@using BlazorTrip.Domain.Models
+@using BlazorTrip.Web.WebApis
+@inject TransactionPageViewModel ViewModel
+@inject PopoverApi PopoverApi
+@implements IDisposable
 
 <div class="app-page">
 
@@ -9,8 +16,8 @@
 
     <div @ref="_popoverNew" class="c-component-popover" popover="manual" id="new-transaction-form">
         <NewTransactionCard
-            Categories="_categories"
-            People="_people"
+            Categories="ViewModel.Categories"
+            People="ViewModel.People"
             OnSubmit="Submit"
             OnClose="ClosePopover"/>
     </div>
@@ -18,7 +25,7 @@
     <div style="display: flex; justify-content: space-between; gap: 1rem; margin-bottom: 1rem">
 
         <div class="app-search-container">
-            <input class="app-input" placeholder="Pesquise aqui..."/>
+            <input class="app-input" @bind="ViewModel.Search" @bind:event="oninput" placeholder="Pesquise aqui..."/>
             <i class="ph ph-magnifying-glass"></i>
         </div>
 
@@ -28,19 +35,69 @@
         </button>
     </div>
 
-    <TransactionTable Transactions="transactionRepository.TransactionDtos"
+    <TransactionTable Transactions="ViewModel.Transactions"
                       OnDelete="Delete"
-                      OnEdit="ToUpdate"/>
+                      OnEdit="SelectToUpdate"/>
 
-    <AppModal @bind-Visible="_isUpdateVisible">
-        @if (_selected is not null)
+    <AppModal Visible="ViewModel.IsUpdateVisible" VisibleChanged="UnselectToUpdate">
+        @if (ViewModel.SelectedTransaction is not null)
         {
             <UpdateTransactionCard
-                Categories="_categories"
-                People="_people"
+                Categories="ViewModel.Categories"
+                People="ViewModel.People"
                 OnSubmit="Update"
-                OnClose="@(() => _isUpdateVisible = false)"
-                Transaction="_selected"/>
+                OnClose="UnselectToUpdate"
+                Transaction="ViewModel.SelectedTransaction"/>
         }
     </AppModal>
 </div>
+
+@code
+{
+    private void UpdateUi(object? sender, EventArgs args) => InvokeAsync(StateHasChanged);
+
+    private ElementReference _popoverNew;
+
+    private async Task ClosePopover()
+    {
+        await PopoverApi.Close(_popoverNew);
+    }
+
+    protected override void OnInitialized()
+    {
+        ViewModel.PropertyChanged += UpdateUi;
+        ViewModel.Transactions.CollectionChanged += UpdateUi;
+        ViewModel.LoadCommand.Execute(null);
+    }
+
+    private void SelectToUpdate(TransactionDto dto)
+    {
+        ViewModel.SelectTransactionCommand.Execute(dto);
+    }
+
+    private void UnselectToUpdate()
+    {
+        ViewModel.UnselectTransactionCommand.Execute(null);
+    }
+
+    private void Update(Transaction transaction)
+    {
+        ViewModel.UpdateTransactionCommand.Execute(transaction);
+    }
+
+    private void Submit(CreateTransactionDto dto)
+    {
+        ViewModel.CreateTransactionCommand.Execute(dto);
+    }
+
+    private void Delete(TransactionDto dto)
+    {
+        ViewModel.DeleteTransactionCommand.Execute(dto.Id);
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged -= UpdateUi;
+        ViewModel.Transactions.CollectionChanged -= UpdateUi;
+    }
+}

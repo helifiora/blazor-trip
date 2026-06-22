@@ -1,4 +1,7 @@
 @page "/categories"
+@using BlazorTrip.Application.ViewModels
+@inject CategoryPageViewModel ViewModel
+@implements IDisposable
 
 <div class="app-page">
 
@@ -6,7 +9,7 @@
                 SubTitle="Quais categorias foram os gastos"
                 IconName="ph ph-tag-simple"/>
 
-    <form class="app-card category-edit-card" @onsubmit="AddCategory">
+    <form class="app-card category-edit-card" @onsubmit="@(() => ViewModel.AddCategoryCommand.ExecuteAsync(null))">
 
         <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center">
             <h2 class="app-title" style="margin-bottom: 1rem">
@@ -16,14 +19,13 @@
 
         <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: flex-end">
 
-            <SelectCategoryIcon @bind-Value="_logo"/>
+            <SelectCategoryIcon @ref="_iconRef" @bind-Value="ViewModel.Logo"/>
 
             <input id="name-form-id"
                    placeholder="Escreva o nome..."
                    class="app-input"
                    style="width: 100%"
-                   @ref="_nameReference"
-                   @bind="_name"/>
+                   @bind="ViewModel.Name"/>
 
             <button type="submit" class="app-button">
                 Criar
@@ -37,15 +39,50 @@
     <div
         style="justify-content: center; display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 25rem)); gap: 1rem">
 
-        @foreach (var item in _categories)
+        @foreach (var item in ViewModel.Data)
         {
             <AppCategoryItem
                 @key="item.Id"
                 Category="item"
-                OnRemoved="RemoveCategory"
-                OnCategoryChanged="UpdateCategory"/>
+                OnRemoved="ViewModel.RemoveCategoryCommand.ExecuteAsync"
+                OnCategoryChanged="ViewModel.UpdateCategoryCommand.ExecuteAsync"/>
         }
 
     </div>
 
 </div>
+
+@code
+{
+    private SelectCategoryIcon? _iconRef;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += UpdateUi;
+        ViewModel.Data.CollectionChanged += UpdateUi;
+        ViewModel.OnChange += FocusInput;
+        await ViewModel.LoadCommand.ExecuteAsync(null);
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender) await FocusInputAsync();
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged -= UpdateUi;
+        ViewModel.Data.CollectionChanged -= UpdateUi;
+        ViewModel.OnChange -= FocusInput;
+    }
+
+    private void FocusInput() => _ = FocusInputAsync();
+
+    private async Task FocusInputAsync()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(50));
+        if (_iconRef is not null) await _iconRef.FocusAsync();
+    }
+
+    private void UpdateUi(object? sender, EventArgs args) => InvokeAsync(StateHasChanged);
+}

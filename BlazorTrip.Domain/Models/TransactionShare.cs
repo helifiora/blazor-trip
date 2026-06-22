@@ -1,4 +1,4 @@
-namespace BlazorTrip.Domain;
+namespace BlazorTrip.Domain.Models;
 
 public record TransactionShare(
     Transaction Transaction,

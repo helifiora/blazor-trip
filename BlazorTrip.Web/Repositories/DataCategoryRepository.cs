@@ -1,4 +1,5 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 using BlazorTrip.Web.Data;
 using CommunityToolkit.Mvvm.Messaging;
 

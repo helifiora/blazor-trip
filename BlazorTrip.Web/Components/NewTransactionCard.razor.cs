@@ -1,5 +1,5 @@
-using BlazorTrip.Domain;
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
+using BlazorTrip.Domain.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 
@@ -11,38 +11,33 @@ public partial class NewTransactionCard : ComponentBase
 
     [Parameter] [EditorRequired] public IEnumerable<Category> Categories { get; set; }
 
-    [Parameter] public EventCallback<Transaction> OnSubmit { get; set; }
+    [Parameter] public EventCallback<CreateTransactionDto> OnSubmit { get; set; }
 
     [Parameter] public EventCallback OnClose { get; set; }
 
-    private NewTransactionModel _model = new();
+    private CreateTransactionDto _model = new();
 
     private InputText? _nameRef;
 
     protected override void OnInitialized()
     {
-        _model = NewTransactionModel.NewWithSharedAdded(People.Select(s => s.Id));
+        _model = CreateTransactionDto.NewWithSharedAdded(People.Select(s => s.Id));
+    }
+
+    protected override void OnParametersSet()
+    {
+        _model = CreateTransactionDto.NewWithSharedAdded(People.Select(s => s.Id));
     }
 
     private async Task Submit(EditContext context)
     {
-        var item = Transaction.Create(
-            _model.Name,
-            _model.Amount,
-            _model.CategoryId,
-            _model.PayerId,
-            _model.SharedIds
-        );
-
-        await OnSubmit.InvokeAsync(item);
-
-        _model = NewTransactionModel.NewWithSharedAdded(People.Select(s => s.Id));
+        await OnSubmit.InvokeAsync(_model);
+        _model = CreateTransactionDto.NewWithSharedAdded(People.Select(s => s.Id));
         await InvokeAsync(StateHasChanged);
-        await Task.Delay(TimeSpan.FromMilliseconds(100));        
-        if (_nameRef?.Element is ElementReference e)
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        if (_nameRef?.Element is { } e)
         {
             await e.FocusAsync();
         }
-
     }
 }

@@ -1,4 +1,5 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 using BlazorTrip.Web.Repositories;
 
 namespace BlazorTrip.Web.Commands;

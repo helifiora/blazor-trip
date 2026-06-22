@@ -22,6 +22,7 @@
     <ItemGroup>
       <ProjectReference Include="..\BlazorTrip.Application\BlazorTrip.Application.csproj" />
       <ProjectReference Include="..\BlazorTrip.Domain\BlazorTrip.Domain.csproj" />
+      <ProjectReference Include="..\BlazorTrip.Infrastructure\BlazorTrip.Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>

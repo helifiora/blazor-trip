@@ -1,4 +1,5 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 
 namespace BlazorTrip.Web.Data;
 

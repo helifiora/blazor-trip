@@ -1,4 +1,4 @@
-﻿namespace BlazorTrip.Domain;
+﻿namespace BlazorTrip.Domain.Models;
 
 public record Transaction(
     Guid Id,
@@ -7,7 +7,7 @@ public record Transaction(
     Guid CategoryId,
     Guid PayerId,
     IEnumerable<Guid> SharedIds
-)
+) : IEntity
 {
     public static Transaction Create(
         string name,

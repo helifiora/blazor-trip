@@ -3,15 +3,19 @@
      id="@_uniqueId"
      popover="auto"
      class="select-category-icon-grid"
-     @onfocusout="CloseOnFocusOut">
+     role="radiogroup"
+     aria-label="Seleção de icones da categoria"
+     @ontoggle="OnTogglePopover"
+     @onkeydown="OnKeyDown">
     @foreach (var item in AvailableIcons)
     {
         <label class="select-category-icon">
-            <input type="radio" name="@GroupName"
+            <input type="radio"
+                   name="@GroupName"
                    checked="@(Value == item)"
-                   @onclick="CloseAsync"
-                   autofocus="@(Value == item)"/>
-            <i class="ph @item"></i>
+                   @onchange="@(() => OnIconSelected(item))"
+                   autofocus="@(Value == item || (string.IsNullOrEmpty(Value) && item == AvailableIcons[0]))"/>
+            <i class="ph @item" aria-hidden="true"></i>
         </label>
     }
 </div>
@@ -19,10 +23,9 @@
 <button @ref="_buttonRef"
         popovertarget="@_uniqueId"
         style="anchor-name: @_uniqueId"
+        aria-haspopup="true"
         type="button"
-        class="select-category-button"
-        @onkeydown="KeyDown"
-        @onfocusout="CloseOnFocusOut">
+        class="select-category-button">
     @if (!string.IsNullOrEmpty(Value))
     {
         <i class="ph @Value"></i>

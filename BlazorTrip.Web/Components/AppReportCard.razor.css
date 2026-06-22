@@ -14,3 +14,29 @@
 .report-card-transaction:not(:last-child) {
     border-bottom: 1px solid oklch(var(--app-sys-color-primary) l c h / 20%);
 }
+
+.c-report-expense-item {
+    padding: 0.5rem 1rem;
+
+    &:nth-child(odd) {
+        background: oklch(from var(--app-sys-color-primary) l c h / 6%);
+    }
+}
+
+.c-report-expense-container {
+    padding: 0.5rem 0;
+}
+
+.c-report-category-summary {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    padding: 0.75rem;
+    align-items: center;
+}
+
+.c-report-category-summary__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}

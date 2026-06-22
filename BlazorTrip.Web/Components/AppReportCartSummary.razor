@@ -1,28 +1,23 @@
-<div>
-
-
-
-    <div style="
+<div style="
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
     gap: 0.25rem;">
 
-        @foreach (var item in PersonCategories)
-        {
-            <li class="c-report-category-summary" @key="item.Category.Id">
-                <i class="ph @item.Category.Logo app-text -lg -bold"></i>
-                <div class=" c-report-category-summary__content">
-                    <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem">
-                        <span class="app-text -sm -bold">@item.Category.Name</span>
-                        <span class="app-text -sm">@item.CategoryAmount.ToString("C")</span>
+    @foreach (var item in PersonCategories)
+    {
+        <li class="c-report-category-summary" @key="item.Category.Id">
+            <i class="ph @item.Category.Logo app-text -lg -bold"></i>
+            <div class=" c-report-category-summary__content">
+                <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem">
+                    <span class="app-text -sm -bold">@item.Category.Name</span>
+                    <span class="app-text -sm">@item.CategoryAmount.ToString("C")</span>
 
-                    </div>
-                    <AppPercentageBar Value="item.CategoryAmount"
-                                      Max="Report.TotalSpent"/>
                 </div>
-            </li>
-        }
+                <AppPercentageBar Value="item.CategoryAmount"
+                                  Max="Report.TotalSpent"/>
+            </div>
+        </li>
+    }
 
 
-    </div>
 </div>

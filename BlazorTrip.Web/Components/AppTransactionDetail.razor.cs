@@ -1,6 +1,4 @@
-using BlazorTrip.Domain;
-using BlazorTrip.Web.Dtos;
-using BlazorTrip.Web.Pages;
+using BlazorTrip.Application.Dto;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Components;

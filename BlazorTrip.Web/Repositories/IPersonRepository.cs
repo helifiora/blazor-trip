@@ -1,4 +1,5 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
 namespace BlazorTrip.Web.Repositories;

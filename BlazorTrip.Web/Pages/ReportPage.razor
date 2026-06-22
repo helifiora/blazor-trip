@@ -1,5 +1,9 @@
 @page "/reports"
-@using BlazorTrip.Domain
+@using BlazorTrip.Application.Dto
+@using BlazorTrip.Application.ViewModels
+@using BlazorTrip.Domain.Models
+@inject ReportPageViewModel ViewModel
+@implements IDisposable
 
 <div class="app-page">
 
@@ -8,30 +12,54 @@
         SubTitle="Divisão de contas para cada membro da viagem"
         IconName="ph ph-table"/>
 
-    <div  style="margin-bottom: 2rem;">
-        <h2 class="app-title" style="margin: 0.5rem">Selecione a pessoa</h2>
-        <ul style="display: flex; flex-wrap: wrap; gap: 1rem">
-            <AppSelectButtons TItem="Person"
-                              Items="_people"
-                              SelectText="p => p.Name"
-                              Value="_selectedPerson"
-                              ValueChanged="OnPersonSelected"/>
-        </ul>
+    <div style="margin-bottom: 2rem;">
+        <h2 class="app-text -bold -sm" style="margin-bottom: 0.25rem">Selecione a pessoas</h2>
+        <AppSelectButtons TItem="Person"
+                          Items="ViewModel.People"
+                          SelectText="p => p.Name"
+                          @bind-Value="ViewModel.SelectedPerson"/>
     </div>
 
-    @if (_report is not null)
+    @if (ViewModel.Report is not null)
     {
         <AppReportCard
-            Report="_report"
+            Report="ViewModel.Report"
             OnDetailTransaction="OpenPreview"/>
     }
 </div>
 
-<AppModal @bind-Visible="_previewIsVisible">
-    @if (_previewTransaction is not null)
+<AppModal Visible="ViewModel.IsPreviewVisible" VisibleChanged="ClosePreview">
+    @if (ViewModel.PreviewTransaction is not null)
     {
         <AppTransactionDetail
-            Transaction="_previewTransaction"
+            Transaction="ViewModel.PreviewTransaction"
             OnClose="ClosePreview"/>
     }
 </AppModal>
+
+@code
+{
+    protected override void OnInitialized()
+    {
+        ViewModel.PropertyChanged += UpdateUi;
+        ViewModel.LoadCommand.Execute(null);
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged += UpdateUi;
+    }
+
+
+    private void OpenPreview(TransactionDto transaction)
+    {
+        ViewModel.PreviewTransaction = transaction;
+    }
+
+    private void ClosePreview()
+    {
+        ViewModel.PreviewTransaction = null;
+    }
+
+    private void UpdateUi(object? sender, EventArgs args) => InvokeAsync(StateHasChanged);
+}

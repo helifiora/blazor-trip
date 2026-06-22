@@ -1,4 +1,5 @@
 using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 using BlazorTrip.Web.Dtos;
 
 namespace BlazorTrip.Web.Repositories;
@@ -13,5 +14,4 @@ public interface ITransactionRepository : IDisposable
     Task Update(Transaction transaction);
     Task Delete(Guid id);
     Task Import(IEnumerable<Transaction> transactions);
-    void NotifyStateChanged();
 }

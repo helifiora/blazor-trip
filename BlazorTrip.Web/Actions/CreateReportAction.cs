@@ -1,8 +1,8 @@
-using BlazorTrip.Domain;
+using BlazorTrip.Domain.Models;
 using BlazorTrip.Web.Dtos;
 using BlazorTrip.Web.Repositories;
 
-namespace BlazorTrip.Web.Facade;
+namespace BlazorTrip.Web.Actions;
 
 public class CreateReportAction(
     IPersonRepository personRepository,

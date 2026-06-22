@@ -24,9 +24,9 @@
 
 .c-person-content {
     display: flex;
-    padding: 1rem 1.5rem;
+    padding: 0.5rem 1rem;
     gap: 1rem;
-    background: oklch(from var(--app-sys-color-primary) 0.95 c h);
+    background: oklch(from var(--app-sys-color-primary) 0.96 c h);
 
     /*border-left: 1px solid oklch(from var(--app-sys-color-primary) l c h / 12%);*/
 }
@@ -55,9 +55,8 @@
 
 .app-person-shares {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    border-left: 1px solid var(--app-sys-color-outline);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 .app-person-shares__header {
@@ -65,9 +64,11 @@
     gap: 0.5rem;
     align-items: center;
     padding: 0.5rem 1rem;
+    border-bottom: 1px solid var(--app-sys-color-outline);
 }
 
 .app-person-shares__footer {
+    border-top: 1px solid var(--app-sys-color-outline);
     display: flex;
     justify-content: flex-end;
     gap: 0.5rem;

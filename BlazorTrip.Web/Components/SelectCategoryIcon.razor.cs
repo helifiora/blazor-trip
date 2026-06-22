@@ -1,10 +1,10 @@
+using BlazorTrip.Web.WebApis;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.JSInterop;
 
 namespace BlazorTrip.Web.Components;
 
-public partial class SelectCategoryIcon(IJSRuntime jsRuntime) : ComponentBase
+public partial class SelectCategoryIcon(PopoverApi popoverApi) : ComponentBase
 {
     private readonly string _uniqueId = Guid.NewGuid().ToString("N");
 
@@ -21,32 +21,6 @@ public partial class SelectCategoryIcon(IJSRuntime jsRuntime) : ComponentBase
     public async Task FocusAsync()
     {
         await _buttonRef.FocusAsync();
-    }
-
-    private async Task KeyDown(KeyboardEventArgs e)
-    {
-        if (e.Key == "Escape")
-        {
-            await CloseAsync();
-        }
-    }
-
-    private async Task CloseOnFocusOut()
-    {
-        await Task.Delay(100);
-
-        var isFocusOnButton = await jsRuntime.InvokeAsync<bool>("focusHelper.containsActiveElement", _buttonRef);
-        var isFocusOnPopover = await jsRuntime.InvokeAsync<bool>("focusHelper.containsActiveElement", _popoverTarget);
-
-        if (!isFocusOnButton && !isFocusOnPopover)
-        {
-            await CloseAsync();
-        }
-    }
-
-    private async Task CloseAsync()
-    {
-        await jsRuntime.InvokeVoidAsync("popoverHelper.close", _popoverTarget);
     }
 
     private async Task OnIconSelected(string selected)
@@ -92,4 +66,20 @@ public partial class SelectCategoryIcon(IJSRuntime jsRuntime) : ComponentBase
         "ph-database",
         "ph-warehouse"
     ];
+
+    private async Task OnTogglePopover()
+    {
+        if (await popoverApi.IsOpen(_popoverTarget) && Value == string.Empty)
+        {
+            await OnIconSelected(AvailableIcons.First());
+        }
+    }
+
+    private async Task OnKeyDown(KeyboardEventArgs obj)
+    {
+        if (obj.Key == "Tab")
+        {
+            await popoverApi.Close(_popoverTarget);
+        }
+    }
 }

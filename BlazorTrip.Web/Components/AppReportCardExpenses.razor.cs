@@ -1,6 +1,7 @@
-using BlazorTrip.Domain;
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
+using BlazorTrip.Domain.Models;
 using Microsoft.AspNetCore.Components;
+using TransactionDto = BlazorTrip.Application.Dto.TransactionDto;
 
 namespace BlazorTrip.Web.Components;
 
@@ -16,11 +17,9 @@ public partial class AppReportCardExpenses : ComponentBase
 
     [Parameter] public EventCallback<TransactionDto> OnDetailTransaction { get; set; }
 
-    
-    private List<ReportShareDto> PersonTransactions => Report.TransactionShares
-        .SelectMany(s => s.Shares)
-        .Where(s => s.Transaction.Payer.Id == Report.Person.Id)
-        .DistinctBy(s => s.Transaction.Id)
-        .OrderByDescending(s => s.Transaction.Amount)
+    private List<TransactionDto> PersonTransactions => Report.Transactions
+        .OrderByDescending(s => s.Amount)
         .ToList();
+
+    private decimal SharedAmount(TransactionDto transaction) => transaction.Amount / transaction.Shared.Count();
 }

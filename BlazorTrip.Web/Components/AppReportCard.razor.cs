@@ -1,5 +1,4 @@
-using BlazorTrip.Domain;
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Components;
@@ -40,10 +39,32 @@ public partial class AppReportCard
             _ => "Nada a restituir"
         };
     }
-    
+
     private void OnSelectTab(AppReportCardTab tab)
     {
         Tab = tab;
         _ = TabChanged.InvokeAsync(tab);
     }
+
+    private List<PersonTransactionCategory> TotalSpendingItems => Report.Transactions
+        .GroupBy(s => s.Category)
+        .Select(s =>
+        {
+            var categoryAmount = s.Select(q => q.Amount).Sum();
+            return new PersonTransactionCategory(s.Key, categoryAmount, s.Count());
+        })
+        .OrderByDescending(s => s.CategoryAmount)
+        .ToList();
+
+    private List<PersonTransactionCategory> BalanceSpendingItems => Report.ReportPayers
+        .SelectMany(s => s.SharesToPay)
+        .Concat(Report.ReportPayers.SelectMany(s => s.SharesToReceive))
+        .GroupBy(s => s.Transaction.Category)
+        .Select(s =>
+        {
+            var categoryAmount = s.Select(q => q.ShareAmount).Sum();
+            return new PersonTransactionCategory(s.Key, categoryAmount, s.Count());
+        })
+        .OrderByDescending(s => s.CategoryAmount)
+        .ToList();
 }

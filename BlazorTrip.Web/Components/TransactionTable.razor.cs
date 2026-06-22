@@ -1,4 +1,4 @@
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazorTrip.Web.Components;

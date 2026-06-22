@@ -1,21 +1,25 @@
 @page "/people"
+@inject PersonPageViewModel ViewModel
+@using BlazorTrip.Application.ViewModels
+@implements IDisposable
 
 <div class="app-page">
     <PageHeader Title="Participantes"
                 SubTitle="Todos os viajantes"
                 IconName="ph ph-users-three"/>
 
-    <form @onsubmit="AddNewPerson" class="app-card"
+    <form @onsubmit="@(() => ViewModel.AddPersonCommand.ExecuteAsync(null))" class="app-card"
           style="margin-bottom: 2rem; grid-template-columns: 1fr auto auto;    gap: 1rem;    padding: 1.5rem;">
 
         <h2 class="app-title -is-2" style="margin-bottom: 1rem">Novo Participante</h2>
 
         <div style="display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: flex-end">
-            <input placeholder="Escreva o nome..." id="name-form-id" class="app-input" style="width: 100%" @bind="_name"
+            <input placeholder="Escreva o nome..." id="name-form-id" class="app-input" style="width: 100%"
+                   @bind="ViewModel.Name"
                    @ref="_nameInput"/>
 
             <button type="submit" class="app-button">
-                <span>Criar</span>
+                Criar
             </button>
 
         </div>
@@ -25,13 +29,57 @@
 
     <div style="display: flex; gap: 0.5rem; flex-direction: column">
 
-        @foreach (var item in _people)
+        @foreach (var item in ViewModel.Data)
         {
-            <PersonItem Person="item"
-                        @key="item.Id"
-                        OnPersonChanged="Update"
-                        OnRemoved="Remove"/>
+            <PersonItem
+                @key="item.Id"
+                Person="item"
+                OnPersonChanged="ViewModel.UpdatePersonCommand.ExecuteAsync"
+                OnRemoved="ViewModel.DeletePersonCommand.ExecuteAsync"/>
         }
 
     </div>
 </div>
+
+@code {
+
+    private ElementReference _nameInput;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ViewModel.PropertyChanged += UpdateUi;
+        ViewModel.Data.CollectionChanged += UpdateUi;
+        ViewModel.OnChange += OnChange;
+        await ViewModel.LoadAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await FocusInput();
+        }
+    }
+
+    public void Dispose()
+    {
+        ViewModel.PropertyChanged -= UpdateUi;
+        ViewModel.Data.CollectionChanged -= UpdateUi;
+        ViewModel.OnChange -= OnChange;
+    }
+
+    private void OnChange()
+    {
+        _ = FocusInput();
+    }
+
+    private async Task FocusInput()
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        await _nameInput.FocusAsync();
+    }
+
+    private void UpdateUi(object? sender, EventArgs args) =>
+        InvokeAsync(StateHasChanged);
+
+}

@@ -1,5 +1,6 @@
-<div style="padding-top: 1rem">
-
+<div class="mb-5">
+    <h3 class="app-title -sm mb-2">Contas de @Report.Person.Name</h3>
+    
     <table class="app-table is-striped">
         <thead>
         <tr>
@@ -13,13 +14,13 @@
         @foreach (var item in PersonTransactions)
         {
             <tr>
-                <td><i class="ph @item.Transaction.Category.Logo"></i></td>
-                <td @onclick="@(() => OnDetailTransaction.InvokeAsync(item.Transaction))">@item.Transaction.Name</td>
-                <td>@item.Transaction.Amount.ToString("C")</td>
-                <td>@item.SharedAmount.ToString("C") / pessoa</td>
+                <td><i class="ph @item.Category.Logo"></i></td>
+                <td @onclick="@(() => OnDetailTransaction.InvokeAsync(item))">@item.Name</td>
+                <td>@item.Amount.ToString("C")</td>
+                <td>@(SharedAmount(item).ToString("C")) / pessoa</td>
             </tr>
         }
         </tbody>
     </table>
-    
+
 </div>

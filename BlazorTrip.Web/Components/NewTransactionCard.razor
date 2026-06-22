@@ -58,7 +58,7 @@
                 <label style="display: flex; gap: 0.5rem; align-items: center" @key="item.Id">
                     <input type="checkbox" name="form-shared-by" value="@item.Name"
                            checked="@_model.SharedIds.Contains(item.Id)"
-                           @onchange="@(() => _model.OnToggleShared(item.Id))"/>
+                           @onchange="@(() => _model.ToggleSharedId(item.Id))"/>
                     @item.Name
                 </label>
             }

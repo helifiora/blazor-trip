@@ -178,3 +178,6 @@ code {
     color: var(--app-sys-color-error);
 }
 
+.mb-5 {
+    margin-bottom: 1.5rem;
+}

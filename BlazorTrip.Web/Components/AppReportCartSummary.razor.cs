@@ -1,10 +1,8 @@
-using BlazorTrip.Domain;
-using BlazorTrip.Web.Dtos;
+using BlazorTrip.Application.Dto;
 using Microsoft.AspNetCore.Components;
+using TransactionDto = BlazorTrip.Application.Dto.TransactionDto;
 
 namespace BlazorTrip.Web.Components;
-
-
 
 public partial class AppReportCartSummary : ComponentBase
 {
@@ -12,19 +10,16 @@ public partial class AppReportCartSummary : ComponentBase
 
     [Parameter] public EventCallback<TransactionDto> OnDetailTransaction { get; set; }
 
-    
-    private List<ReportShareDto> PersonTransactions => Report.TransactionShares
-        .SelectMany(s => s.Shares)
-        .Where(s => s.Transaction.Payer.Id == Report.Person.Id)
-        .DistinctBy(s => s.Transaction.Id)
-        .OrderByDescending(s => s.Transaction.Amount)
+
+    private List<TransactionDto> PersonTransactions => Report.Transactions
+        .OrderByDescending(s => s.Amount)
         .ToList();
 
     private List<PersonTransactionCategory> PersonCategories => PersonTransactions
-        .GroupBy(s => s.Transaction.Category)
+        .GroupBy(s => s.Category)
         .Select(s =>
         {
-            var categoryAmount = s.Select(q => q.Transaction.Amount).Sum();
+            var categoryAmount = s.Select(q => q.Amount).Sum();
             return new PersonTransactionCategory(s.Key, categoryAmount, s.Count());
         })
         .OrderByDescending(s => s.CategoryAmount)

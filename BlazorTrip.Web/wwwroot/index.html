@@ -67,8 +67,13 @@
         }
     };
     window.popoverHelper = {
+        isOpen(popover) {
+            return popover && popover.matches(':popover-open');
+        },
         show(popover) {
-            popover.showPopover();
+            if (popover && !popover.matches(':popover-open')) {
+                popover.showPopover();
+            }
         },
         close(popover) {
             if (popover && popover.matches(':popover-open')) {
